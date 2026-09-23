@@ -4,6 +4,7 @@ public class Room {
     private String name;
     private String description;
     private String beenThereDescription;
+    private Boolean beenInRoomBefore;
     private Room north;
     private Room east;
     private Room south;
@@ -14,18 +15,29 @@ public class Room {
         this.name = name;
         this.description = description;
         this.beenThereDescription = beenThereDescription;
+        this.beenInRoomBefore = false;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(Room room) {
+   /* public void setName(Room room) {
         ;
-    }
+    }*/
 
     public String getDescription() {
-        return description;
+        if(beenInRoomBefore)
+        {
+            return beenThereDescription;
+        }
+        else {
+            return description;
+        }
+    }
+
+    public void setBeenInRoomBefore() {
+        this.beenInRoomBefore = true;
     }
 
     public void setNorth(Room room) {
