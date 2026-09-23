@@ -1,2 +1,67 @@
 public class Room {
+
+    // Vores variable
+    private String name;
+    private String description;
+    private String beenThereDescription;
+    private Room north;
+    private Room east;
+    private Room south;
+    private Room west;
+
+    // Vores konstruktør
+    public Room (String name, String description, String beenThereDescription) {
+        this.name = name;
+        this.description = description;
+        this.beenThereDescription = beenThereDescription;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(Room room) {
+        ;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setNorth(Room room) {
+        this.north = room;
+    }
+
+    public Room getNorth() {
+        return north;
+    }
+
+    public void setEast(Room room) {
+        this.east = room;
+    }
+
+    public Room getEast() {
+        return east;
+    }
+
+    public void setSouth(Room room) {
+        this.south = room;
+    }
+
+    public Room getSouth() {
+        return south;
+    }
+
+    public void setWest(Room room) {
+        this.west = room;
+    }
+
+    public Room getWest() {
+        return west;
+    }
+
+
+
+
+
 }
