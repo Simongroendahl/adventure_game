@@ -22,10 +22,6 @@ public class Room {
         return name;
     }
 
-   /* public void setName(Room room) {
-        ;
-    }*/
-
     public String getDescription() {
         if(beenInRoomBefore)
         {

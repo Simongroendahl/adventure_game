@@ -78,7 +78,7 @@ public class Main {
 
             }
             else if (userInput.equalsIgnoreCase("Look")) {
-                System.out.println(adventure.room1.getDescription());
+                System.out.println(currentRoom.getDescription());
             }
             else {
                 System.out.println("not allowed");
