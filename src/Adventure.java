@@ -76,7 +76,6 @@ public class Adventure {
                     currentRoom = next;
                     System.out.println(currentRoom.getDescription());
                     currentRoom.setBeenInRoomBefore();
-
                 }
                 else {
                     System.out.println(NavigationErrorMessage);
