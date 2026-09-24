@@ -27,9 +27,9 @@ public class UserInterface {
      static boolean runProgram = true;
 
      public void runProgram() {
-         System.out.println("Start Game");
-         System.out.println("Help");
-         System.out.println("Exit");
+         System.out.println("1. Start Game");
+         System.out.println("2. Help");
+         System.out.println("3. Exit");
 
 
          while(runProgram) {
