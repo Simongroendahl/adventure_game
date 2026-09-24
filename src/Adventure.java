@@ -3,13 +3,15 @@ import java.sql.SQLOutput;
 public class Adventure {
 
     // Vores variable
-    private Room currentRoom;
+    private Player player;
+    private Map map;
+
     public boolean startGame;
 
     // Konstruktør
-    public Adventure(Room currentRoom) {
+    /*public Adventure(Room currentRoom) {
         this.currentRoom = currentRoom;
-    }
+    }*/
 
         public static void startGame() {
             UserInterface userInterface = new UserInterface();
@@ -29,18 +31,21 @@ public class Adventure {
 
             while(startGame) {
                 String userInput = userInterface.getInput();
+                Player.move(userInput);
+
 
                 // NAVIGATION
-                if (userInput.equalsIgnoreCase("Go north")) {
-                    Room next = currentRoom.getNorth();
-                    if(next != null) {
-                        currentRoom = next;
+                /*if (userInput.equalsIgnoreCase("Go north")) {
+                    *//*Room nextRoom = currentRoom.getNorth();
+                    if(nextRoom != null) {
+                        currentRoom = nextRoom;
                         System.out.println(currentRoom.getDescription());
                         currentRoom.setBeenInRoomBefore();
                     }
                     else {
                         System.out.println(NavigationErrorMessage);
-                    }
+                    }*//*
+                    Player.move("west");
                 }
                 else if (userInput.equalsIgnoreCase("Go east")) {
                     Room next = currentRoom.getEast();
@@ -82,7 +87,7 @@ public class Adventure {
                 else if (userInput.equalsIgnoreCase("Exit")) {
                     System.out.println("Really? Boring!");
                     startGame = false;
-                }
+                }*/
             }
         }
 }

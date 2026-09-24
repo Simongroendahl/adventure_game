@@ -5,8 +5,11 @@ public class UserInterface {
     private static Scanner scanner;
     private static Adventure adventure;
 
+
+
     public UserInterface(){
       scanner = new Scanner(System.in);
+        /*Adventure adventure = new Adventure(Map.room1);*/
     }
 
     public static String getInput(){
