@@ -1,11 +1,11 @@
-import java.util.Scanner;
+
 
 public class Adventure {
 
     public static void main(String[] args) {
 
         Boolean runProgram = true;
-        Scanner scanner = new Scanner(System.in);
+
         String startDescription = "You awake in a cold dark room. You look around. You're all alone. You don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
         String NavigationErrorMessage = "You cannot go that way.";
 
@@ -50,13 +50,14 @@ public class Adventure {
         room9.setNorth(room6);
 
         Room currentRoom = room1;
+        UserInterface userInterface = new UserInterface();
 
         System.out.println("You are in " + currentRoom.getName());
         System.out.println(startDescription);
         System.out.println(currentRoom.getDescription());
-
+        room1.setBeenInRoomBefore();
         while(runProgram) {
-            String userInput = scanner.nextLine();
+            String userInput = userInterface.getInput();
 
             // NAVIGATION
             if (userInput.equalsIgnoreCase("Go north")) {
@@ -70,7 +71,7 @@ public class Adventure {
                     System.out.println(NavigationErrorMessage);
                 }
             }
-            if (userInput.equalsIgnoreCase("Go east")) {
+           else if (userInput.equalsIgnoreCase("Go east")) {
                 Room next = currentRoom.getEast();
                 if(next != null) {
                     currentRoom = next;
@@ -82,7 +83,7 @@ public class Adventure {
                 }
             }
 
-            if (userInput.equalsIgnoreCase("Go west")) {
+           else if (userInput.equalsIgnoreCase("Go west")) {
                 Room next = currentRoom.getWest();
                 if(next != null) {
                     currentRoom = next;
@@ -101,32 +102,33 @@ public class Adventure {
                     System.out.println(currentRoom.getDescription());
                     currentRoom.setBeenInRoomBefore();
                 }
-                else {
-                    System.out.println(NavigationErrorMessage);
-                }
+
             }
 
-            if(userInput.equalsIgnoreCase("Exit")){
+
+            else if(userInput.equalsIgnoreCase("Exit")){
                 System.out.println("You have exited the room");
                 runProgram = false;
             }
 
-            if (userInput.equalsIgnoreCase("Help")) {
+            else if (userInput.equalsIgnoreCase("Help")) {
                 System.out.println("List of commands:");
                 System.out.println("1. Look (get the description of the room)");
                 System.out.println("2. Go north/east/west/south (enter a new room)");
 
             }
-            if (userInput.equalsIgnoreCase("Look")) {
+            else if (userInput.equalsIgnoreCase("Look")) {
                 System.out.println(room1.getDescription());
             }
+              else {
+                System.out.println("not allowed");
+            }
 
-            room1.setBeenInRoomBefore();
         }
 
-        scanner.close();
-
+        userInterface.close();
+        }
 
 
     }
-}
+
