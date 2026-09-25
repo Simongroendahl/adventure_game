@@ -1,94 +1,64 @@
-import java.sql.SQLOutput;
-
 public class Adventure {
 
     // Vores variable
     private Player player;
+    private UserInterface userInterface;
     private Map map;
+    private boolean gameRunning;
 
-    public boolean startGame;
+    String startDescription = "You awake in a cold dark room. You look around. You're all alone. \nYou don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
 
     // Konstruktør
-    /*public Adventure(Room currentRoom) {
-        this.currentRoom = currentRoom;
-    }*/
+    public Adventure(UserInterface userInterface) {
+        this.userInterface = userInterface;
+        map = new Map();
+    }
 
-        public static void startGame() {
-            UserInterface userInterface = new UserInterface();
-            boolean startGame = true;
-            Map.buildMap();
+        public void startGame() {
+            map.buildMap();
+            player = new Player(map.getStartRoom());
+            gameRunning = true;
 
-            Room currentRoom = Map.room1;
+            userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
+            userInterface.printMessage(startDescription);
+            userInterface.printMessage(player.getCurrentRoom().getDescription());
 
+            player.getCurrentRoom().setBeenInRoomBefore();
 
-            String startDescription = "You awake in a cold dark room. You look around. You're all alone. You don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
-            String NavigationErrorMessage = "You cannot go that way.";
-            System.out.println("You are in " + currentRoom.getName());
-            System.out.println(startDescription);
-            System.out.println(currentRoom.getDescription());
-
-            Map.room1.setBeenInRoomBefore();
-
-            while(startGame) {
+            while(gameRunning) {
                 String userInput = userInterface.getInput();
-                Player.move(userInput);
 
-
-                // NAVIGATION
-                /*if (userInput.equalsIgnoreCase("Go north")) {
-                    *//*Room nextRoom = currentRoom.getNorth();
-                    if(nextRoom != null) {
-                        currentRoom = nextRoom;
-                        System.out.println(currentRoom.getDescription());
-                        currentRoom.setBeenInRoomBefore();
-                    }
-                    else {
-                        System.out.println(NavigationErrorMessage);
-                    }*//*
-                    Player.move("west");
+                if(userInput.equalsIgnoreCase("help")){
+                    userInterface.showHelp();
                 }
-                else if (userInput.equalsIgnoreCase("Go east")) {
-                    Room next = currentRoom.getEast();
-                    if(next != null) {
-                        currentRoom = next;
-                        System.out.println(currentRoom.getDescription());
-                        currentRoom.setBeenInRoomBefore();
-                    }
-                    else {
-                        System.out.println(NavigationErrorMessage);
-                    }
+                else if(userInput.equalsIgnoreCase("look")){
+                    userInterface.printMessage(player.getCurrentRoom().getDescription());
                 }
+                else if (userInput.equalsIgnoreCase("exit")){
+                    userInterface.printMessage("Really? Boring!");
+                    userInterface.closeScanner();
+                    gameRunning = false;
+                }
+                else {
+                    String direction = userInterface.parseDirection(userInput);
 
-                else if (userInput.equalsIgnoreCase("Go west")) {
-                    Room next = currentRoom.getWest();
-                    if(next != null) {
-                        currentRoom = next;
-                        System.out.println(currentRoom.getDescription());
-                        currentRoom.setBeenInRoomBefore();
-                    }
-                    else {
-                        System.out.println(NavigationErrorMessage);
+                        if (direction != null) {
+                            Room result = player.move(direction);
+                            if (result != null) {
+                                userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
+                                userInterface.printMessage(result.getDescription());
+                                result.setBeenInRoomBefore();
+                            }
+                            else {
+                                userInterface.printMessage("You can't go that way.");
+                            }
+                        }
+                        else {
+                            userInterface.printMessage("You can't go that way.");
+                        }
                     }
                 }
-
-                else if (userInput.equalsIgnoreCase("Go south")) {
-                    Room next =  currentRoom.getSouth();
-                    if (next != null) {
-                        currentRoom = next;
-                        System.out.println(currentRoom.getDescription());
-                        currentRoom.setBeenInRoomBefore();
-                    }
-
-                }
-                else if (userInput.equalsIgnoreCase("Help")) {
-                    UserInterface.showHelp();
-                }
-
-                else if (userInput.equalsIgnoreCase("Exit")) {
-                    System.out.println("Really? Boring!");
-                    startGame = false;
-                }*/
             }
         }
-}
+
 

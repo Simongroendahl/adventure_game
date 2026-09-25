@@ -5,12 +5,9 @@ public class Room {
     private String description;
     private String beenThereDescription;
     private Boolean beenInRoomBefore;
-    private Room north;
-    private Room east;
-    private Room south;
-    private Room west;
+    private Room north, east, south, west;
 
-    // Vores konstruktør
+    // Konstruktør
     public Room (String name, String description, String beenThereDescription) {
         this.name = name;
         this.description = description;
@@ -67,9 +64,4 @@ public class Room {
     public Room getWest() {
         return west;
     }
-
-
-
-
-
 }
