@@ -31,17 +31,21 @@ public class Map {
     A sudden knock on the window draws your attention. 
     You see a person in a spacesuit floating in the dark. There's a huge hole in the helmet, with red liquid around the broken glass""",
             "Room 6 short description");
+
     Room room7 = new Room("ROOM 7 - THE CHANGING ROOM", """
     A thick steam rolls out the room, as you enter. Every shower is running. It's hard to hear anything but the dripping water. 
     You look down and see red liquid flush down the drain.""",
             "Room 7 short description");
+
     Room room8 = new Room("ROOM 8 - THE MONITORING ROOM", """
     There are strange machines, with surveillance video on seven of the nine screens, temperature and heart rate monitoring.""",
             "Room 8 short description");
+
     Room room9 = new Room("ROOM 9 - THE LABORATORY", """
     An immediate horrible smell fills the room, as the door opens. You see a familiar face. But it's not where it belongs. 
     Stuck on the walls you see several people you used to remember. 
-    The medic, the mechanic, and then you see the face you hoped not to see - your wife's. They are covered in organic matter. Their bellies are hanging out, and look extremely big. Something is moving inside of them.""",
+    The medic, the mechanic, and then you see the face you hoped not to see - your wife's. 
+    They are covered in organic matter. Their bellies are hanging out, and look extremely big. Something is moving inside of them.""",
             "Room 9 short description");
 
     public Room getStartRoom() {
