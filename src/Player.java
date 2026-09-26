@@ -1,14 +1,17 @@
 public class Player {
 
-    private static Room currentRoom;
+    private Room currentRoom;
 
-    public Player (Room currentRoom) {
-        this.currentRoom = currentRoom;
+    public Player (Room startingRoom) {
+        currentRoom = startingRoom;
     }
+public Room getCurrentRoom(){
+        return currentRoom;
+    }
+    public boolean move(String direction) {
 
-    public static boolean move(String direction) {
-
-        Room nextRoom = switch (direction) {
+        Room nextRoom=
+                switch (direction) {
             case "north", "go north", "n" -> currentRoom.getNorth();
             case "south", "go south", "s" -> currentRoom.getSouth();
             case "east", "go east", "e"  -> currentRoom.getEast();

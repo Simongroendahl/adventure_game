@@ -3,16 +3,14 @@ import java.util.Scanner;
 public class UserInterface {
 
     private static Scanner scanner;
-    private static Adventure adventure;
-
 
 
     public UserInterface(){
       scanner = new Scanner(System.in);
-        /*Adventure adventure = new Adventure(Map.room1);*/
+
     }
 
-    public static String getInput(){
+    public  String getInput(){
         return scanner.nextLine();
     }
 
@@ -35,17 +33,8 @@ public class UserInterface {
          System.out.println("3. Exit");
 
 
-         while(runProgram) {
-             String userInput = getInput();
-             // GAME MENU
-             if (userInput.equalsIgnoreCase("Start game")) {
-                 Adventure.startGame();
-                 runProgram = false;
-             }
 
-             else if (userInput.equalsIgnoreCase("Help")) {
-                showHelp();
              }
          }
-     }
-}
+
+
