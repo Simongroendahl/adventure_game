@@ -25,7 +25,9 @@ public class Adventure {
             userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
             userInterface.printMessage(startDescription);
             userInterface.printMessage(player.getCurrentRoom().getDescription());
-            userInterface.printMessage("Here you see: " + player.getCurrentRoom().getItems());
+            player.getCurrentRoom().getItems();
+            /*userInterface.printMessage("" + player.getCurrentRoom().getItems());*/
+
 
             player.getCurrentRoom().setBeenInRoomBefore();
 
@@ -56,6 +58,7 @@ public class Adventure {
                             if (result != null) {
                                 userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
                                 userInterface.printMessage(result.getDescription());
+                                player.getCurrentRoom().getItems();
                                 result.setBeenInRoomBefore();
                             }
                             else {

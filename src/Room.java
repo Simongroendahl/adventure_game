@@ -9,6 +9,10 @@ public class Room {
     private Boolean beenInRoomBefore;
     private Room north, east, south, west;
     private ArrayList<Item>items;
+    // Simon sletter dette her senere
+    private UserInterface userInterface;
+
+    private Item item;
 
 
     // Konstruktør
@@ -20,11 +24,15 @@ public class Room {
         this.beenInRoomBefore = false;
     }
     public ArrayList<Item> getItems(){
+        System.out.print("Here you see: ");
         for (Item item : items) {
-            return items;
+            item.printItemInfo(item.getShortName());
         }
-        System.out.println("There are no items in the room.");
+        System.out.println();
+
         return null;
+        /*System.out.println("GetItems metode log.");*/
+
     }
 
     public void addItem(Item item) {

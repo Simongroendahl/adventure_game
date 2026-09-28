@@ -11,8 +11,8 @@
           this.longName = longName;
       }
 
-          public void printItemList(Item items) {
-
+          public void printItemInfo(String shortName) {
+              System.out.print(shortName + ", ");
           }
 
           public String getLongName() {
