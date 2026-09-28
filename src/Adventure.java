@@ -25,14 +25,17 @@ public class Adventure {
             userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
             userInterface.printMessage(startDescription);
             userInterface.printMessage(player.getCurrentRoom().getDescription());
-            player.getCurrentRoom().getItems();
-            /*userInterface.printMessage("" + player.getCurrentRoom().getItems());*/
+            userInterface.printItemList(player.getCurrentRoom().getItems());
 
 
             player.getCurrentRoom().setBeenInRoomBefore();
 
             while(gameRunning) {
                 String userInput = userInterface.getInput();
+                // Et String array oprettes, som splitter inputtet ved mellemrummet.
+                String[] parts = userInput.split(" ", 2);
+                String command = parts[0].toLowerCase();
+                String argument = parts.length > 1 ? parts[1].trim() : "";
 
                 if(userInput.equalsIgnoreCase("help")){
                     userInterface.showHelp();
@@ -45,8 +48,35 @@ public class Adventure {
                     userInterface.closeScanner();
                     gameRunning = false;
                 }
+
+                // Take metoden skal kunne søge efter et item i en ArrayList
+                // Er den der, skal den kalde takeItem() metoden
+                else if (command.equalsIgnoreCase("take")) {
+                    if(command.isEmpty()) {
+                        userInterface.printMessage("Take what?");
+                    }
+                    else if (player.takeItem(argument)) {
+                        userInterface.printMessage("You took the " + argument + ".");
+                    }
+                    else {
+                        userInterface.printMessage("There is no " + argument + " here.");
+                    }
+                }
+
+                else if (command.equalsIgnoreCase("Drop")) {
+                    if(command.isEmpty()) {
+                        userInterface.printMessage("Drop what?");
+                    }
+                    else if (player.dropItem(argument)) {
+                        userInterface.printMessage("You dropped the " + argument + ".");
+                    }
+                    else {
+                        userInterface.printMessage("There is no " + argument + " here.");
+                    }
+                }
+
                 else if (userInput.equalsIgnoreCase("inventory")) {
-                    player.getInventory();
+                    userInterface.printInventoryList(player.getInventory());
                 }
 
 
@@ -58,7 +88,7 @@ public class Adventure {
                             if (result != null) {
                                 userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
                                 userInterface.printMessage(result.getDescription());
-                                player.getCurrentRoom().getItems();
+                                userInterface.printItemList(player.getCurrentRoom().getItems());
                                 result.setBeenInRoomBefore();
                             }
                             else {

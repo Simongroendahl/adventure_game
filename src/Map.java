@@ -63,6 +63,7 @@ public class Map {
      public void buildItems(){
          room1.addItem(key1);
          room1.addItem(key2);
+
          room2.addItem(key3);
      }
 

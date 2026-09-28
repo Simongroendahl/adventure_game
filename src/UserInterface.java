@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -22,8 +23,37 @@ public class UserInterface {
         System.out.println(message);
     }
 
+    public void printMessageInline(String message) {
+        System.out.print(message);
+    }
+
     public void printHighlightedMessage(String text){
         System.out.println(highlightedText + " " + text + " " + resetColor);
+    }
+
+    public void printItemList(ArrayList<Item> items) {
+        if(items.isEmpty()) {
+            return;
+        }
+        printMessageInline("Here you see: ");
+        printMessageInline(items.getFirst().getShortName());
+        for (int i = 1; i < items.size(); i++) {
+            printMessageInline(", " + items.get(i).getShortName());
+        }
+        printMessage("");
+    }
+
+    public void printInventoryList(ArrayList<Item> inventory) {
+        if(inventory.isEmpty()) {
+            printMessage("You have no items.");
+            return;
+        }
+        printMessageInline("Your inventory has: ");
+        printMessageInline(inventory.getFirst().getShortName());
+        for (int i = 1; i < inventory.size(); i++) {
+            printMessageInline(", " + inventory.get(i).getShortName());
+        }
+        printMessage("");
     }
 
     public String parseDirection(String input) {
