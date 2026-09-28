@@ -3,15 +3,13 @@ import java.util.ArrayList;
 public class Player {
 
     private Room currentRoom;
-    private ArrayList<Item>inventory;
+    private ArrayList<Item> inventory;
 
     Item startItem1 = new Item("Flashlight", "Black flashlight with a blue glow");
 
     public Player (Room startRoom) {
         this.currentRoom = startRoom;
         this.inventory = new ArrayList<>();
-        // Tester inventory metoder
-        addItem(startItem1);
     }
 
     public void addItem(Item item){

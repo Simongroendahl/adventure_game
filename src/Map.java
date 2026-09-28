@@ -51,12 +51,12 @@ public class Map {
 
      public void buildItems(){
          // Kalder den overloadede addItem metode fra Room klassen.
-         room1.addItem("key card", "a bloodied key card");
+         room1.addItem("key card", "bloodied key card", "a");
 
-         room2.addItem("key3", "long name key3");
-         room2.addItem("rifle", "a stasis laser rifle");
+         room2.addItem("flash light", "robust flash light", "a");
+         room2.addItem("rifle", "stasis laser rifle", "a");
 
-         room3.addItem("burger", "a fresh burger with salad");
+         room3.addItem("burger", "fresh hamburger", "a");
      }
 
 

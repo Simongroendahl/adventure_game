@@ -26,8 +26,8 @@ public class Room {
         items.add(item);
     }
 
-    public void addItem(String shortName, String longName) {
-        items.add(new Item(shortName, longName));
+    public void addItem(String shortName, String longName, String article) {
+        items.add(new Item(shortName, longName, article));
     }
 
     public void removeItem(Item item) {

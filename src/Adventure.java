@@ -53,7 +53,7 @@ public class Adventure {
                 // Take metoden skal kunne søge efter et item i en ArrayList
                 // Er den der, skal den kalde takeItem() metoden
                 else if (command.equalsIgnoreCase("take")) {
-                    if(command.isEmpty()) {
+                    if(argument.isEmpty()) {
                         userInterface.printMessage("Take what?");
                     }
                     else if (player.takeItem(argument)) {
@@ -65,7 +65,7 @@ public class Adventure {
                 }
 
                 else if (command.equalsIgnoreCase("Drop")) {
-                    if(command.isEmpty()) {
+                    if(argument.isEmpty()) {
                         userInterface.printMessage("Drop what?");
                     }
                     else if (player.dropItem(argument)) {

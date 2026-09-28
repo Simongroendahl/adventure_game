@@ -36,9 +36,9 @@ public class UserInterface {
             return;
         }
         printMessageInline("Here you see: ");
-        printMessageInline(items.getFirst().getLongName());
+        printMessageInline(items.getFirst().getIndefiniteName());
         for (int i = 1; i < items.size(); i++) {
-            printMessageInline(", " + items.get(i).getLongName());
+            printMessageInline(", " + items.get(i).getIndefiniteName());
         }
         printMessage("");
     }
@@ -49,9 +49,9 @@ public class UserInterface {
             return;
         }
         printMessageInline("Your inventory has: ");
-        printMessageInline(inventory.getFirst().getShortName());
+        printMessageInline(inventory.getFirst().getIndefiniteName());
         for (int i = 1; i < inventory.size(); i++) {
-            printMessageInline(", " + inventory.get(i).getShortName());
+            printMessageInline(", and " + inventory.get(i).getIndefiniteName());
         }
         printMessage("");
     }
