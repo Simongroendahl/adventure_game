@@ -3,26 +3,59 @@ import java.util.ArrayList;
 public class Player {
 
     private Room currentRoom;
-
     private ArrayList<Item>inventory;
+    UserInterface userInterface = new UserInterface();
 
 
     public Player (Room startRoom) {
         this.currentRoom = startRoom;
-        this.inventory=new ArrayList<>();
+        this.inventory = new ArrayList<>();
     }
+
     public void addItem(Item item){
         inventory.add(item);
     }
+
     public void removeItem(Item item){
         inventory.remove(item);
     }
-    public void takeItem(String shortName){
 
-        currentRoom.getItems().remove(shortName);
-        inventory.add(shortName);
+    public Item takeItem(String shortName){
+        /*currentRoom.getItems().remove(shortName);
+        inventory.add();*/
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase(shortName)) {
+                inventory.add(item);
+            }
+        }
+        return null;
     }
 
+    public Item dropItem(String shortName){
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase(shortName)) {
+                inventory.remove(item);
+            }
+        }
+        return null;
+    }
+
+    public Item findItem(String shortName){
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase(shortName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public Item getInventory() {
+        for (Item item : inventory) {
+            userInterface.printMessage(item.getShortName());
+        }
+        System.out.println("Der er intet i inventory");
+        return null;
+    }
 
 
     public Room getCurrentRoom() {

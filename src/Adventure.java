@@ -4,6 +4,8 @@ public class Adventure {
     private Player player;
     private UserInterface userInterface;
     private Map map;
+    private Item item;
+    private Room room;
     private boolean gameRunning;
 
     String startDescription = "You awake in a cold dark room. You look around. You're all alone. \nYou don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
@@ -16,12 +18,14 @@ public class Adventure {
 
         public void startGame() {
             map.buildMap();
+            map.buildItems();
             player = new Player(map.getStartRoom());
             gameRunning = true;
 
             userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
             userInterface.printMessage(startDescription);
             userInterface.printMessage(player.getCurrentRoom().getDescription());
+            userInterface.printMessage("Here you see: " + player.getCurrentRoom().getItems());
 
             player.getCurrentRoom().setBeenInRoomBefore();
 
@@ -39,6 +43,11 @@ public class Adventure {
                     userInterface.closeScanner();
                     gameRunning = false;
                 }
+                else if (userInput.equalsIgnoreCase("inventory")) {
+                    player.getInventory();
+                }
+
+
                 else {
                     String direction = userInterface.parseDirection(userInput);
 

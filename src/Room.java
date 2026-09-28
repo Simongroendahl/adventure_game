@@ -16,12 +16,34 @@ public class Room {
         this.name = name;
         this.description = description;
         this.beenThereDescription = beenThereDescription;
-        this.items=new ArrayList<>();
+        this.items = new ArrayList<>();
         this.beenInRoomBefore = false;
     }
     public ArrayList<Item> getItems(){
-        return items;
+        for (Item item : items) {
+            return items;
+        }
+        System.out.println("There are no items in the room.");
+        return null;
     }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void remove(Item item) {
+        items.remove(item);
+    }
+
+    public Item findItem(String shortName) {
+        for (Item item : items) {
+            if (item.getShortName().equalsIgnoreCase(shortName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
 
     public String getName() {
         return name;

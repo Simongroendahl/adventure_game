@@ -47,6 +47,7 @@ public class Map {
     The medic, the mechanic, and then you see the face you hoped not to see - your wife's. 
     They are covered in organic matter. Their bellies are hanging out, and look extremely big. Something is moving inside of them.""",
             "Room 9 short description");
+
     Item key1 = new Item("key1", "magic key1");
     Item key2 = new Item("key2", "magic key11");
     Item key3 = new Item("key3", "magic key2");
@@ -58,8 +59,11 @@ public class Map {
     Item key9 = new Item("key7", "magic key7");
     Item key10 = new Item("key8", "magic key8");
     Item key11 = new Item("key9", "magic key9");
-     public void buildItem(){
-         room1.getItems().add(key1);
+
+     public void buildItems(){
+         room1.addItem(key1);
+         room1.addItem(key2);
+         room2.addItem(key3);
      }
 
 
