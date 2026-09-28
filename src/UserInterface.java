@@ -36,9 +36,9 @@ public class UserInterface {
             return;
         }
         printMessageInline("Here you see: ");
-        printMessageInline(items.getFirst().getShortName());
+        printMessageInline(items.getFirst().getLongName());
         for (int i = 1; i < items.size(); i++) {
-            printMessageInline(", " + items.get(i).getShortName());
+            printMessageInline(", " + items.get(i).getLongName());
         }
         printMessage("");
     }

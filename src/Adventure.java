@@ -4,8 +4,6 @@ public class Adventure {
     private Player player;
     private UserInterface userInterface;
     private Map map;
-    private Item item;
-    private Room room;
     private boolean gameRunning;
 
     String startDescription = "You awake in a cold dark room. You look around. You're all alone. \nYou don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
@@ -25,6 +23,8 @@ public class Adventure {
             userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
             userInterface.printMessage(startDescription);
             userInterface.printMessage(player.getCurrentRoom().getDescription());
+
+            // Tilføj if-statement her, som kun printer items ud, hvis der er nogle.
             userInterface.printItemList(player.getCurrentRoom().getItems());
 
 
@@ -41,7 +41,8 @@ public class Adventure {
                     userInterface.showHelp();
                 }
                 else if(userInput.equalsIgnoreCase("look")){
-                    userInterface.printMessage(player.getCurrentRoom().getDescription());
+                    userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
+                    userInterface.printMessage(player.look());
                 }
                 else if (userInput.equalsIgnoreCase("exit")){
                     userInterface.printMessage("Really? Boring!");

@@ -4,7 +4,6 @@ public class Player {
 
     private Room currentRoom;
     private ArrayList<Item>inventory;
-    /*UserInterface userInterface = new UserInterface();*/
 
     Item startItem1 = new Item("Flashlight", "Black flashlight with a blue glow");
 
@@ -25,6 +24,7 @@ public class Player {
 
     //
     public boolean takeItem(String shortName){
+        // Objektreferencen gemmes i item først (så den ikke slettes)
         Item item = currentRoom.findItem(shortName);
         if (item == null) {
             return false;
@@ -53,14 +53,6 @@ public class Player {
         return null;
     }
 
-    /*public Item getInventory() {
-        for (Item item : inventory) {
-            userInterface.printMessage(item.getShortName());
-        }
-        System.out.println("Der er intet i inventory");
-        return null;
-    }*/
-
     public ArrayList<Item> getInventory() {
         return inventory;
     }
@@ -83,5 +75,9 @@ public class Player {
             currentRoom = nextRoom;
         }
         return nextRoom;
+    }
+
+    public String look() {
+        return currentRoom.getLongDescription();
     }
 }

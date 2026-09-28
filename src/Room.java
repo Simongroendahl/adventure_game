@@ -4,36 +4,30 @@ public class Room {
 
     // Vores variable
     private String name;
-    private String description;
-    private String beenThereDescription;
-    private Boolean beenInRoomBefore;
+    private String longDescription;
+    private String shortDescription;
+    private Boolean beenInRoomBefore = false;
     private Room north, east, south, west;
     private ArrayList<Item> items;
-    private Item item;
 
 
     // Konstruktør
-    public Room (String name, String description, String beenThereDescription) {
+    public Room (String name, String longDescription, String shortDescription) {
         this.name = name;
-        this.description = description;
-        this.beenThereDescription = beenThereDescription;
+        this.longDescription = longDescription;
+        this.shortDescription = shortDescription;
         this.items = new ArrayList<>();
-        this.beenInRoomBefore = false;
     }
     public ArrayList<Item> getItems(){
         return items;
     }
 
-//    public List<Item> getImmutableItems() {
-//        return Collections.unmodifiableList(items);
-//    }
-//
-//    static void main(String[] args) {
-//        new Room("", "", "").getImmutableItems().add(null);
-//    }
-
     public void addItem(Item item) {
         items.add(item);
+    }
+
+    public void addItem(String shortName, String longName) {
+        items.add(new Item(shortName, longName));
     }
 
     public void removeItem(Item item) {
@@ -49,19 +43,16 @@ public class Room {
         return null;
     }
 
-
     public String getName() {
         return name;
     }
 
+    public String getLongDescription() {
+        return longDescription;
+    }
+
     public String getDescription() {
-        if(beenInRoomBefore)
-        {
-            return beenThereDescription;
-        }
-        else {
-            return description;
-        }
+        return beenInRoomBefore ? shortDescription : longDescription;
     }
 
     public void setBeenInRoomBefore() {

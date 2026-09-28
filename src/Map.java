@@ -1,6 +1,7 @@
 public class Map {
 
-    Room room1 = new Room("ROOM 1 - THE SLEEPING PODS", """
+    Room room1 = new Room("ROOM 1 - THE SLEEPING PODS",
+            """
             You are in a sleeping pod chamber. There are five more sleeping pods, but all of them are empty. 
             There are two doors, one facing east, the other facing south.
             """,
@@ -48,23 +49,14 @@ public class Map {
     They are covered in organic matter. Their bellies are hanging out, and look extremely big. Something is moving inside of them.""",
             "Room 9 short description");
 
-    Item key1 = new Item("key1", "magic key1");
-    Item key2 = new Item("key2", "magic key11");
-    Item key3 = new Item("key3", "magic key2");
-    Item key4 = new Item("key22", "magic key22");
-    Item key5 = new Item("key3", "magic key3");
-    Item key6 = new Item("key4", "magic key4");
-    Item key7 = new Item("key5", "magic key5");
-    Item key8 = new Item("key6", "magic key6");
-    Item key9 = new Item("key7", "magic key7");
-    Item key10 = new Item("key8", "magic key8");
-    Item key11 = new Item("key9", "magic key9");
-
      public void buildItems(){
-         room1.addItem(key1);
-         room1.addItem(key2);
+         // Kalder den overloadede addItem metode fra Room klassen.
+         room1.addItem("key card", "a bloodied key card");
 
-         room2.addItem(key3);
+         room2.addItem("key3", "long name key3");
+         room2.addItem("rifle", "a stasis laser rifle");
+
+         room3.addItem("burger", "a fresh burger with salad");
      }
 
 
