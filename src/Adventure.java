@@ -1,66 +1,64 @@
-import java.sql.SQLOutput;
-
 public class Adventure {
 
     // Vores variable
     private Player player;
-    private Map map;
     private UserInterface userInterface;
-    public Adventure() {
+    private Map map;
+    private boolean gameRunning;
+
+    String startDescription = "You awake in a cold dark room. You look around. You're all alone. \nYou don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
+
+    // Konstruktør
+    public Adventure(UserInterface userInterface) {
+        this.userInterface = userInterface;
         map = new Map();
-        player = new Player(map.getStartRoom());
-        userInterface = new UserInterface();
     }
 
         public void startGame() {
-            boolean runProgram = true;
-            String startDescription = "You awake in a cold dark room. You look around. You're all alone. You don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
-            String NavigationErrorMessage = "You cannot go that way.";
-            System.out.println("You are in " + player.getCurrentRoom().getName());
-            System.out.println(startDescription);
-            System.out.println(player.getCurrentRoom().getDescription());
+            map.buildMap();
+            player = new Player(map.getStartRoom());
+            gameRunning = true;
+
+            userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
+            userInterface.printMessage(startDescription);
+            userInterface.printMessage(player.getCurrentRoom().getDescription());
 
             player.getCurrentRoom().setBeenInRoomBefore();
 
-            while (runProgram) {
+            while(gameRunning) {
                 String userInput = userInterface.getInput();
 
-
-                // NAVIGATION
-                if (userInput.equalsIgnoreCase("Go north")) {
-
-                  player.move("north");
-                } else {
-                    System.out.println(NavigationErrorMessage);
+                if(userInput.equalsIgnoreCase("help")){
+                    userInterface.showHelp();
                 }
-
-                if  (userInput.equalsIgnoreCase("Go east")) {
-                    player.move("east");
-                } else {
-                    System.out.println(NavigationErrorMessage);
+                else if(userInput.equalsIgnoreCase("look")){
+                    userInterface.printMessage(player.getCurrentRoom().getDescription());
                 }
-
-
-                 if (userInput.equalsIgnoreCase("Go west")) {
-                    player.move("west");
-                } else {
-                    System.out.println(NavigationErrorMessage);
+                else if (userInput.equalsIgnoreCase("exit")){
+                    userInterface.printMessage("Really? Boring!");
+                    userInterface.closeScanner();
+                    gameRunning = false;
                 }
+                else {
+                    String direction = userInterface.parseDirection(userInput);
 
-
-                if (userInput.equalsIgnoreCase("Go south")) {
-                    player.move("south");
-                } else {
-                    System.out.println(NavigationErrorMessage);
-                }
-
-                if (userInput.equalsIgnoreCase("Help")) {
-                    UserInterface.showHelp();
-                } else if (userInput.equalsIgnoreCase("Exit")) {
-                    System.out.println("Really? Boring!");
-                    runProgram = false;
+                        if (direction != null) {
+                            Room result = player.move(direction);
+                            if (result != null) {
+                                userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
+                                userInterface.printMessage(result.getDescription());
+                                result.setBeenInRoomBefore();
+                            }
+                            else {
+                                userInterface.printMessage("You can't go that way.");
+                            }
+                        }
+                        else {
+                            userInterface.printMessage("You can't go that way.");
+                        }
+                    }
                 }
             }
         }
 
-    }
+

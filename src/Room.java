@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Room {
 
     // Vores variable
@@ -5,17 +7,20 @@ public class Room {
     private String description;
     private String beenThereDescription;
     private Boolean beenInRoomBefore;
-    private Room north;
-    private Room east;
-    private Room south;
-    private Room west;
+    private Room north, east, south, west;
+    private ArrayList<Item>items;
 
-    // Vores konstruktør
+
+    // Konstruktør
     public Room (String name, String description, String beenThereDescription) {
         this.name = name;
         this.description = description;
         this.beenThereDescription = beenThereDescription;
+        this.items=new ArrayList<>();
         this.beenInRoomBefore = false;
+    }
+    public ArrayList<Item> getItems(){
+        return items;
     }
 
     public String getName() {
@@ -67,9 +72,4 @@ public class Room {
     public Room getWest() {
         return west;
     }
-
-
-
-
-
 }

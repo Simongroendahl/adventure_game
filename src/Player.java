@@ -1,17 +1,36 @@
+import java.util.ArrayList;
+
 public class Player {
 
     private Room currentRoom;
 
-    public Player (Room startingRoom) {
-        currentRoom = startingRoom;
+    private ArrayList<Item>inventory;
+
+
+    public Player (Room startRoom) {
+        this.currentRoom = startRoom;
+        this.inventory=new ArrayList<>();
     }
-public Room getCurrentRoom(){
+    public void addItem(Item item){
+        inventory.add(item);
+    }
+    public void removeItem(Item item){
+        inventory.remove(item);
+    }
+    public void takeItem(String shortName){
+
+        currentRoom.getItems().remove(shortName);
+        inventory.add(shortName);
+    }
+
+
+
+    public Room getCurrentRoom() {
         return currentRoom;
     }
-    public boolean move(String direction) {
 
-        Room nextRoom=
-                switch (direction) {
+    public Room move(String direction) {
+        Room nextRoom = switch (direction.trim().toLowerCase()) {
             case "north", "go north", "n" -> currentRoom.getNorth();
             case "south", "go south", "s" -> currentRoom.getSouth();
             case "east", "go east", "e"  -> currentRoom.getEast();
@@ -21,12 +40,7 @@ public Room getCurrentRoom(){
 
         if (nextRoom != null) {
             currentRoom = nextRoom;
-            System.out.println(currentRoom.getDescription());
-            currentRoom.setBeenInRoomBefore();
-            return true;
         }
-        else {
-            return false;
-        }
+        return nextRoom;
     }
 }
