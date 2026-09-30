@@ -7,6 +7,14 @@ public class UserInterface {
     public String highlightedText = "\u001b[1;48;2;255;169;0;30m";
     public String resetColor = "\u001b[0m";
 
+    // Story text
+    /*private String startDescription = "You awake in a cold dark room. You look around. You're all alone. \nYou don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";*/
+    private String startDescription = "The year is 3225. It has been a 112 years since you went to sleep. You're onboard the deep space research vessel Hermes II. \nYour job is to maintain the spaceship during the long voyage. You're the only one supposed to be awake right now. But that is not the case.\n";
+
+    public void getIntroText() {
+        printMessage(startDescription);
+    }
+
     public UserInterface(){
       scanner = new Scanner(System.in);
     }
@@ -68,24 +76,26 @@ public class UserInterface {
     }
 
      public void showHelp() {
-         System.out.println("Overview of commands:");
-         System.out.println("1. Directions: You can go north, east, west, or south. Type in - Go North, for instance.");
-         System.out.println("2. Look: Type Look, in order to get a description of the current room again.");
-         System.out.println("3. Exit: Type Exit in order to close the program");
+         printHighlightedMessage("Overview of commands:");
+         printMessage("1. Directions: You can go north, east, west, or south. Type in - Go North, for instance.");
+         printMessage("2. Look: Type Look, in order to get a description of the current room again.");
+         printMessage("3. Exit: Type Exit in order to close the program");
      }
 
      boolean runProgram = true;
 
      public void runProgram(Adventure adventure) {
          printHighlightedMessage("OUR SPACE GAME");
-         System.out.println("1. Start Game");
-         System.out.println("2. Help");
-         System.out.println("3. Exit");
+         getIntroText();
+         printMessage("Choose:");
+         printMessage("- Start Game");
+         printMessage("- Help");
+         printMessage("- Exit");
 
          while(runProgram) {
              String userInput = getInput();
 
-             if (userInput.equalsIgnoreCase("Start game")) {
+             if (userInput.equalsIgnoreCase("Start game") || (userInput.equalsIgnoreCase("start"))) {
                  adventure.startGame();
                  runProgram = false;
              }

@@ -6,8 +6,6 @@ public class Adventure {
     private Map map;
     private boolean gameRunning;
 
-    String startDescription = "You awake in a cold dark room. You look around. You're all alone. \nYou don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";
-
     // Konstruktør
     public Adventure(UserInterface userInterface) {
         this.userInterface = userInterface;
@@ -21,7 +19,6 @@ public class Adventure {
             gameRunning = true;
 
             userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
-            userInterface.printMessage(startDescription);
             userInterface.printMessage(player.getCurrentRoom().getDescription());
 
             // Tilføj if-statement her, som kun printer items ud, hvis der er nogle.
@@ -59,6 +56,10 @@ public class Adventure {
                     else if (player.takeItem(argument)) {
                         userInterface.printMessage("You took the " + argument + ".");
                     }
+                    /*else if (userInput.equalsIgnoreCase("Take all"))
+                    {
+                        player.takeAllItems();
+                    }*/
                     else {
                         userInterface.printMessage("There is no " + argument + " here.");
                     }
@@ -73,6 +74,47 @@ public class Adventure {
                     }
                     else {
                         userInterface.printMessage("There is no " + argument + " here.");
+                    }
+                }
+
+                else if (userInput.equalsIgnoreCase("Health"))
+                {
+                    if(player.getHealth() >= 100)
+                    {
+                        userInterface.printMessage("Health: " + player.getHealth() + ". You are in perfect health.");
+                    }
+                    else if(player.getHealth() >= 50 && player.getHealth() <= 99)
+                    {
+                        userInterface.printMessage("Health: " + player.getHealth() + ". You are in good health, but avoid fighting right now.");
+                    }
+                    else if(player.getHealth() >= 25 && player.getHealth() <= 49)
+                    {
+                        userInterface.printMessage("Health: " + player.getHealth() + ". You are wounded - find something healthy to eat");
+                    }
+                    else if(player.getHealth() >= 1 && player.getHealth() <= 24)
+                    {
+                        userInterface.printMessage("Health: " + player.getHealth() + ". You are barely alive");
+                    }
+                    else if(player.getHealth() <= 0)
+                    {
+                        userInterface.printMessage("Health: " + player.getHealth() + ". You should be dead.");
+                    }
+                }
+
+                else if (command.equalsIgnoreCase("Eat")) {
+
+                    if(argument.isEmpty()) {
+                        userInterface.printMessage("Eat what?");
+                    }
+                    if (player.eat(argument) == EatResult.EATEN) {
+                        userInterface.printMessage("You ate the " + argument + ".");
+                    }
+                    else if (player.eat(argument) == EatResult.NOT_FOOD)
+                    {
+                        userInterface.printMessage(("That " + argument + " can definitely not be eaten."));
+                    }
+                    else if (player.eat(argument) == EatResult.NOT_FOUND){
+                        userInterface.printMessage("There is no " + argument + " to eat here.");
                     }
                 }
 

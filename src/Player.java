@@ -4,12 +4,12 @@ public class Player {
 
     private Room currentRoom;
     private ArrayList<Item> inventory;
-
-    Item startItem1 = new Item("Flashlight", "Black flashlight with a blue glow");
+    private int health;
 
     public Player (Room startRoom) {
         this.currentRoom = startRoom;
         this.inventory = new ArrayList<>();
+        this.health = 100;
     }
 
     public void addItem(Item item){
@@ -31,6 +31,24 @@ public class Player {
         inventory.add(item);
         return true;
     }
+
+    /*public ArrayList<Item> takeAllItems()
+    {
+        for (Item item : items) {
+            item = currentRoom.getItem(item);
+            if (item == null) {
+                return false;
+            }
+            currentRoom.removeItem(item);
+            inventory.add(item);
+            *//*return true;*//*
+        }
+       return true;
+    }*/
+
+    /*public ArrayList<Item> getItems() {
+        return items;
+    }*/
 
     public Boolean dropItem(String shortName){
         Item item = findItem(shortName);
@@ -58,6 +76,33 @@ public class Player {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public EatResult eat(String shortName)
+    {
+        Item item = findItem(shortName);                // først i inventory
+        if (item == null) {
+            item = currentRoom.findItem(shortName);     // så i rummet
+        }
+
+        if (item == null) {
+            return EatResult.NOT_FOUND;
+        }
+        if (!(item instanceof Food)) {
+            return EatResult.NOT_FOOD;
+        }
+
+        Food food = (Food) item;
+        health += food.getHealthPoints();
+        removeItem(food);                               // maden forsvinder – fra inventory
+        currentRoom.removeItem(food);                   // eller fra rummet
+        return EatResult.EATEN;
+
     }
 
     public Room move(String direction) {

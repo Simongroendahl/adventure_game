@@ -49,6 +49,9 @@ public class Map {
     They are covered in organic matter. Their bellies are hanging out, and look extremely big. Something is moving inside of them.""",
             "Room 9 short description");
 
+
+    /*Food burger = new Food("burger", "a fresh hamburger", 10);*/
+
      public void buildItems(){
          // Kalder den overloadede addItem metode fra Room klassen.
          room1.addItem("key card", "bloodied key card", "a");
@@ -56,7 +59,9 @@ public class Map {
          room2.addItem("flash light", "robust flash light", "a");
          room2.addItem("rifle", "stasis laser rifle", "a");
 
-         room3.addItem("burger", "fresh hamburger", "a");
+         room3.addItem("burger", "a fresh burger", 10);
+         room3.addItem("battery", "smart space rocket laser battery", -99);
+         room3.addItem("cola", "fresh, ice-cold bottle of cola", "a");
      }
 
 

@@ -5,3 +5,9 @@ public class Main {
         userInterface.runProgram(adventure);
     }
 }
+
+
+// "start" skal kunne starte spille
+// "Take all" skal kunne tage alt loot
+// eat command?
+// Look: skal også vise items i rummet igen

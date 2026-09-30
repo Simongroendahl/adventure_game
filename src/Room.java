@@ -30,6 +30,11 @@ public class Room {
         items.add(new Item(shortName, longName, article));
     }
 
+    public void addItem(String shortName, String longName, int healthPoints)
+    {
+        items.add(new Food(shortName, longName, healthPoints));
+    }
+
     public void removeItem(Item item) {
         items.remove(item);
     }

@@ -1,7 +1,7 @@
 public class Item {
 
-    private String shortName;
-    private String longName;
+    protected String shortName;
+    protected String longName;
     private String article;
 
     public Item(String shortName, String longName) {
