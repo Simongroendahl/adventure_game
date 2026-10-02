@@ -6,8 +6,6 @@ public class Main {
     }
 }
 
+// TO-DO LISTE
 
-// "start" skal kunne starte spille
-// "Take all" skal kunne tage alt loot
-// eat command?
-// Look: skal også vise items i rummet igen
+// Tilføj "Equipped: " + equipped.weapon, når man skriver inventory

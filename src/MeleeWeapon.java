@@ -12,7 +12,7 @@ public class MeleeWeapon extends Weapon {
 
     // Equip item
     public void use() {
-        System.out.println("You " + getAttackVerb() + " the " + shortName);
+        /*System.out.println("You " + getAttackVerb() + " the " + shortName);*/
     }
 
     //

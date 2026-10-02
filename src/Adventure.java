@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Adventure {
 
     // Vores variable
@@ -40,6 +42,7 @@ public class Adventure {
                 else if(userInput.equalsIgnoreCase("look")){
                     userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
                     userInterface.printMessage(player.look());
+                    userInterface.printItemList(player.getCurrentRoom().getItems());
                 }
                 else if (userInput.equalsIgnoreCase("exit")){
                     userInterface.printMessage("Really? Boring!");
@@ -53,13 +56,25 @@ public class Adventure {
                     if(argument.isEmpty()) {
                         userInterface.printMessage("Take what?");
                     }
+                    else if (argument.equalsIgnoreCase("all"))
+                    {
+                        ArrayList<Item> taken = player.takeAllItems();
+                        if (taken.isEmpty())
+                        {
+                            userInterface.printMessage("There is nothing to take here.");
+                        }
+                        else
+                        {
+                            for (Item item : taken)
+                            {
+                                userInterface.printMessage("You took the " + item.getShortName() + ".");
+                            }
+                        }
+                    }
                     else if (player.takeItem(argument)) {
                         userInterface.printMessage("You took the " + argument + ".");
                     }
-                    /*else if (userInput.equalsIgnoreCase("Take all"))
-                    {
-                        player.takeAllItems();
-                    }*/
+                    // Take all options
                     else {
                         userInterface.printMessage("There is no " + argument + " here.");
                     }
@@ -136,18 +151,20 @@ public class Adventure {
                 }
 
                 else if (command.equalsIgnoreCase("Attack")) {
-
-                    player.attack();
-                    /*if (player.attack()) {
-                        userInterface.printMessage("You equipped the " + argument + ".");
-                    }
-                    else if (player.equip(argument) == WeaponResult.NOT_WEAPON)
+                    Weapon weapon = player.getEquipped();
+                    if (weapon == null)
                     {
-                        userInterface.printMessage(("That " + argument + " can definitely not be equipped."));
+                        userInterface.printMessage("You have no weapon equipped.");
                     }
-                    else if (player.equip(argument) == WeaponResult.NOT_FOUND){
-                        userInterface.printMessage("There is no " + argument + " to equip here.");
-                    }*/
+                    else if (!weapon.canUse())
+                    {
+                        userInterface.printMessage("Out of ammo");
+                    }
+                    else
+                    {
+                        player.attack();
+                        userInterface.printMessage(weapon.getAttackMessage());
+                    }
                 }
 
                 else if (userInput.equalsIgnoreCase("inventory")) {

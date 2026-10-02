@@ -33,29 +33,28 @@ public class Player {
         return true;
     }
 
-    /*public ArrayList<Item> takeAllItems()
-    {
-        for (Item item : items) {
-            item = currentRoom.getItem(item);
-            if (item == null) {
-                return false;
-            }
+    public ArrayList<Item> takeAllItems() {
+        ArrayList<Item> taken = new ArrayList<>(currentRoom.getItems());
+
+        for (Item item : taken) {
             currentRoom.removeItem(item);
             inventory.add(item);
-            *//*return true;*//*
         }
-       return true;
-    }*/
-
-    /*public ArrayList<Item> getItems() {
-        return items;
-    }*/
+        return taken;
+    }
 
     public Boolean dropItem(String shortName){
         Item item = findItem(shortName);
-        if (item == null) {
+        if (item == null)
+        {
             return false;
         }
+
+        if (item == equipped)
+        {
+            equipped = null;
+        }
+
         currentRoom.addItem(item);
         inventory.remove(item);
         return true;
@@ -103,45 +102,35 @@ public class Player {
         removeItem(food);                               // maden forsvinder – fra inventory
         currentRoom.removeItem(food);                   // eller fra rummet
         return EatResult.EATEN;
+    }
 
+    public Weapon getEquipped()
+    {
+        return equipped;
     }
 
     public WeaponResult equip(String shortName)
     {
-        // IF: Tjek om item findes i inventory
         Item item = findItem(shortName); // først i inventory
         {
             if (item == null) {
             return WeaponResult.NOT_FOUND;
         }
 
-        // IF-NOT weapon - sige det ikke er et våben
-        // Hvis item IKKE er våben, return item_ikke våben
         if (!(item instanceof Weapon))
         {
             return WeaponResult.NOT_WEAPON;
         }
 
         equipped = (Weapon) item;
-
         return WeaponResult.IS_WEAPON;
         }
     }
 
     public void attack() {
-        if (equipped == null) {
-            System.out.println("Can't use that");
-            return ;
+        if (equipped != null && equipped.canUse()) {
+            equipped.use();
         }
-
-        if(!equipped.canUse()) {
-            // "Out of ammo"
-            System.out.println("Out of ammo");
-            return;
-        }
-
-        equipped.use();
-
         // ramte noget med equipped.getDamage()
     }
 

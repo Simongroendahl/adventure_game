@@ -62,10 +62,10 @@ public class Map {
          room1.addItem("key card", "bloodied key card", "a");
 
          room2.addItem("flash light", "robust flash light", "a");
-         room2.addItem("rifle", "a stasis laser rifle", 2, 5);
+         /*room2.addItem("rifle", "a stasis laser rifle", 2, 5);*/
 
          room1.addItem(weapons[0]);
-         room6.addItem(weapons[1]);
+         room2.addItem(weapons[1]);
 
          room3.addItem("burger", "a fresh burger", 10);
          room3.addItem("battery", "smart space rocket laser battery", -99);

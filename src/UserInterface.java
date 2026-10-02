@@ -61,6 +61,8 @@ public class UserInterface {
         for (int i = 1; i < inventory.size(); i++) {
             printMessageInline(", and " + inventory.get(i).getIndefiniteName());
         }
+        printMessage("Equipped:");
+        printMessageInline("");
         printMessage("");
     }
 

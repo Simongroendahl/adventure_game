@@ -13,15 +13,21 @@ public class RangedWeapon extends Weapon{
 
     // Equip item
     public void use() {
+        /*System.out.println("You " + getAttackVerb() + " the " + shortName);*/
         ammunition--;
     }
 
     //
     public String getAttackVerb() {
-        return "You fire the " + shortName;
+        return "fire";
     }
 
     public String getUsesLeft() {
         return ammunition + " shots left.";
+    }
+
+    @Override
+    public String getAttackMessage() {
+        return super.getAttackMessage() + " (" + getUsesLeft() + ")";
     }
 }
