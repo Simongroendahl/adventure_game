@@ -1,0 +1,33 @@
+public abstract class Weapon extends Item {
+
+    private int damage;
+
+    public Weapon(String shortName, String longName, int damage) {
+        super(shortName, longName);
+        this.damage = damage;
+    }
+
+    // Metoder
+    public int getDamage() {
+        return damage;
+    }
+
+    public abstract boolean canUse();
+
+    // Equip item
+    public abstract void use();
+
+    //
+    public String getAttackVerb() {
+        return "";
+    }
+
+    public String getUsesLeft() {
+        return "";
+    }
+
+
+
+
+
+}
