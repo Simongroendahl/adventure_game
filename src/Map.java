@@ -52,12 +52,20 @@ public class Map {
 
     /*Food burger = new Food("burger", "a fresh hamburger", 10);*/
 
+    Weapon[] weapons = {
+            new MeleeWeapon("wrench", "old, rusty wrench", 1),
+            new RangedWeapon("laser rifle", "statis laser rifle", 2, 5),
+    };
+
      public void buildItems(){
          // Kalder den overloadede addItem metode fra Room klassen.
          room1.addItem("key card", "bloodied key card", "a");
 
          room2.addItem("flash light", "robust flash light", "a");
-         room2.addItem("rifle", "stasis laser rifle", "a");
+         room2.addItem("rifle", "a stasis laser rifle", 2, 5);
+
+         room1.addItem(weapons[0]);
+         room6.addItem(weapons[1]);
 
          room3.addItem("burger", "a fresh burger", 10);
          room3.addItem("battery", "smart space rocket laser battery", -99);

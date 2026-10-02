@@ -5,6 +5,7 @@ public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private int health;
+    private Weapon equipped;
 
     public Player (Room startRoom) {
         this.currentRoom = startRoom;
@@ -103,6 +104,45 @@ public class Player {
         currentRoom.removeItem(food);                   // eller fra rummet
         return EatResult.EATEN;
 
+    }
+
+    public WeaponResult equip(String shortName)
+    {
+        // IF: Tjek om item findes i inventory
+        Item item = findItem(shortName); // først i inventory
+        {
+            if (item == null) {
+            return WeaponResult.NOT_FOUND;
+        }
+
+        // IF-NOT weapon - sige det ikke er et våben
+        // Hvis item IKKE er våben, return item_ikke våben
+        if (!(item instanceof Weapon))
+        {
+            return WeaponResult.NOT_WEAPON;
+        }
+
+        equipped = (Weapon) item;
+
+        return WeaponResult.IS_WEAPON;
+        }
+    }
+
+    public void attack() {
+        if (equipped == null) {
+            System.out.println("Can't use that");
+            return ;
+        }
+
+        if(!equipped.canUse()) {
+            // "Out of ammo"
+            System.out.println("Out of ammo");
+            return;
+        }
+
+        equipped.use();
+
+        // ramte noget med equipped.getDamage()
     }
 
     public Room move(String direction) {

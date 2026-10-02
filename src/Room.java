@@ -35,6 +35,16 @@ public class Room {
         items.add(new Food(shortName, longName, healthPoints));
     }
 
+    /*public void addItem(String shortName, String longName, int damage)
+    {
+        items.add(new MeleeWeapon(shortName, longName, damage));
+    }*/
+
+    public void addItem(String shortName, String longName, int damage, int ammunition)
+    {
+        items.add(new RangedWeapon(shortName, longName, damage, ammunition));
+    }
+
     public void removeItem(Item item) {
         items.remove(item);
     }

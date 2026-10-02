@@ -118,6 +118,38 @@ public class Adventure {
                     }
                 }
 
+                else if (command.equalsIgnoreCase("Equip")) {
+
+                    if(argument.isEmpty()) {
+                        userInterface.printMessage("Equip what?");
+                    }
+                    if (player.equip(argument) == WeaponResult.IS_WEAPON) {
+                        userInterface.printMessage("You equipped the " + argument + ".");
+                    }
+                    else if (player.equip(argument) == WeaponResult.NOT_WEAPON)
+                    {
+                        userInterface.printMessage(("That " + argument + " can definitely not be equipped."));
+                    }
+                    else if (player.equip(argument) == WeaponResult.NOT_FOUND){
+                        userInterface.printMessage("There is no " + argument + " to equip here.");
+                    }
+                }
+
+                else if (command.equalsIgnoreCase("Attack")) {
+
+                    player.attack();
+                    /*if (player.attack()) {
+                        userInterface.printMessage("You equipped the " + argument + ".");
+                    }
+                    else if (player.equip(argument) == WeaponResult.NOT_WEAPON)
+                    {
+                        userInterface.printMessage(("That " + argument + " can definitely not be equipped."));
+                    }
+                    else if (player.equip(argument) == WeaponResult.NOT_FOUND){
+                        userInterface.printMessage("There is no " + argument + " to equip here.");
+                    }*/
+                }
+
                 else if (userInput.equalsIgnoreCase("inventory")) {
                     userInterface.printInventoryList(player.getInventory());
                 }
