@@ -82,6 +82,11 @@ public class Room {
         return north;
     }
 
+    public void lockNorth(Room room)
+    {
+        this.north = null;
+    }
+
     public void setEast(Room room) {
         this.east = room;
     }
@@ -90,12 +95,22 @@ public class Room {
         return east;
     }
 
+    public void lockEast(Room room)
+    {
+        this.east = null;
+    }
+
     public void setSouth(Room room) {
         this.south = room;
     }
 
     public Room getSouth() {
         return south;
+    }
+
+    public void lockSouth(Room room)
+    {
+        this.south = null;
     }
 
     public void setWest(Room room) {

@@ -56,13 +56,13 @@ public class UserInterface {
             printMessage("You have no items.");
             return;
         }
-        printMessageInline("Your inventory has: ");
+        printMessageInline("Inventory: ");
         printMessageInline(inventory.getFirst().getIndefiniteName());
         for (int i = 1; i < inventory.size(); i++) {
             printMessageInline(", and " + inventory.get(i).getIndefiniteName());
         }
-        printMessage("Equipped:");
-        printMessageInline("");
+        printMessage("");
+        printMessageInline("Equipped: ");
         printMessage("");
     }
 

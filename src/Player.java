@@ -29,7 +29,7 @@ public class Player {
             return false;
         }
         currentRoom.removeItem(item);
-        inventory.add(item);
+        addItem(item);
         return true;
     }
 
@@ -38,7 +38,7 @@ public class Player {
 
         for (Item item : taken) {
             currentRoom.removeItem(item);
-            inventory.add(item);
+            addItem(item);
         }
         return taken;
     }
@@ -56,7 +56,7 @@ public class Player {
         }
 
         currentRoom.addItem(item);
-        inventory.remove(item);
+        removeItem(item);
         return true;
     }
 
@@ -133,6 +133,15 @@ public class Player {
         }
         // ramte noget med equipped.getDamage()
     }
+
+    /*public Room openRoomTwo() {
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase("key card")) {
+
+            }
+        }
+        return null;
+    }*/
 
     public Room move(String direction) {
         Room nextRoom = switch (direction.trim().toLowerCase()) {

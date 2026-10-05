@@ -36,7 +36,8 @@ public class Adventure {
                 String command = parts[0].toLowerCase();
                 String argument = parts.length > 1 ? parts[1].trim() : "";
 
-                if(userInput.equalsIgnoreCase("help")){
+                if(userInput.equalsIgnoreCase("help"))
+                {
                     userInterface.showHelp();
                 }
                 else if(userInput.equalsIgnoreCase("look")){
@@ -175,8 +176,21 @@ public class Adventure {
                 else {
                     String direction = userInterface.parseDirection(userInput);
 
+                    // IF Door er LOCKED
+                    // IF Player HAS SPECIFIC ITEM
+                        // Do something - åbn
+
+                    Item item = player.findItem("key card");
+
+                    if (item != null)
+                    {
+                        map.openRoomTwo();
+                    }
+
+
                         if (direction != null) {
                             Room result = player.move(direction);
+
                             if (result != null) {
                                 userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
                                 userInterface.printMessage(result.getDescription());
@@ -187,6 +201,7 @@ public class Adventure {
                                 userInterface.printMessage("You can't go that way.");
                             }
                         }
+
                         else {
                             userInterface.printMessage("You can't go that way.");
                         }

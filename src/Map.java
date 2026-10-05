@@ -3,7 +3,7 @@ public class Map {
     Room room1 = new Room("ROOM 1 - THE SLEEPING PODS",
             """
             You are in a sleeping pod chamber. There are five more sleeping pods, but all of them are empty. 
-            There are two doors, one facing east, the other facing south.
+            There are two doors: one facing east with a key card terminal; sparks are flying from the door facing south.
             """,
             "You're back in the sleeping pod chamber");
     Room room2 = new Room("ROOM 2 - THE HALLWAY", """
@@ -27,6 +27,7 @@ public class Map {
             The door that barely held out the aliens slowly opens, and you see tentacles poke through.
             You made it.""",
             "Room 5 short description");
+
     Room room6 = new Room("ROOM 6 - THE HALLWAY WITH WINDOWS", """
     Huge windows cover the eastern side of the hallway walls. You look out at the vast space, sprinkled with stars and planets you have never seen before. 
     A sudden knock on the window draws your attention. 
@@ -78,7 +79,8 @@ public class Map {
     }
 
     public void buildMap() {
-        room1.setEast(room2);
+        /*room1.setEast(room2);*/
+        room1.lockEast(room2);
         room1.setSouth(room4);
 
         room2.setWest(room1);
@@ -99,10 +101,14 @@ public class Map {
         room7.setEast(room8);
 
         room8.setWest(room7);
-        room8.setNorth(room5);
+        room8.lockNorth(room5);
         room8.setEast(room9);
 
         room9.setWest(room8);
         room9.setNorth(room6);
+    }
+
+    public void openRoomTwo() {
+         room1.setEast(room2);
     }
 }
