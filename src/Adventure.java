@@ -14,9 +14,28 @@ public class Adventure {
         map = new Map();
     }
 
+    private void runConversation(DialogueNode startNode) {
+        DialogueNode current = startNode;
+
+        while (current != null) {
+            userInterface.printDialogueNode(current);
+
+            if(current.getOptions().isEmpty()) {
+                break;
+            }
+
+            int choice = userInterface.getChoice(current.getOptions().size());
+            DialogueOption chosen = current.getOptions().get(choice - 1);
+            current = chosen.getNextNode();
+        }
+
+        userInterface.printMessage("You step away from the terminal.");
+    }
+
         public void startGame() {
             map.buildMap();
             map.buildItems();
+            map.buildDialogue();
             player = new Player(map.getStartRoom());
             gameRunning = true;
 
@@ -169,17 +188,23 @@ public class Adventure {
                 }
 
                 else if (userInput.equalsIgnoreCase("inventory")) {
-                    userInterface.printInventoryList(player.getInventory());
+                    userInterface.printInventoryList(player.getInventory(), player.getEquipped());
+                }
+
+                else if (command.equals("terminal")){
+                    DialogueNode dialogue = player.getCurrentRoom().getTerminalDialogue();
+
+                    if (dialogue == null) {
+                        userInterface.printMessage("There is nobody to talk to here.");
+                    }
+                    else {
+                        runConversation(dialogue);
+                    }
                 }
 
 
                 else {
                     String direction = userInterface.parseDirection(userInput);
-
-                    // IF Door er LOCKED
-                    // IF Player HAS SPECIFIC ITEM
-                        // Do something - åbn
-
                     Item item = player.findItem("key card");
 
                     if (item != null)

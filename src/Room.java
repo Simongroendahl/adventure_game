@@ -9,6 +9,7 @@ public class Room {
     private Boolean beenInRoomBefore = false;
     private Room north, east, south, west;
     private ArrayList<Item> items;
+    private DialogueNode terminalDialogue;
 
 
     // Konstruktør
@@ -56,6 +57,14 @@ public class Room {
             }
         }
         return null;
+    }
+
+    public void setTerminalDialogue(DialogueNode node) {
+        terminalDialogue = node;
+    }
+
+    public DialogueNode getTerminalDialogue() {
+        return terminalDialogue;
     }
 
     public String getName() {

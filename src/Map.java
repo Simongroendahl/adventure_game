@@ -55,7 +55,7 @@ public class Map {
 
     Weapon[] weapons = {
             new MeleeWeapon("wrench", "old, rusty wrench", 1),
-            new RangedWeapon("laser rifle", "statis laser rifle", 2, 5),
+            new RangedWeapon("laser rifle", "stasis laser rifle", 2, 5),
     };
 
      public void buildItems(){
@@ -71,7 +71,34 @@ public class Map {
          room3.addItem("burger", "a fresh burger", 10);
          room3.addItem("battery", "smart space rocket laser battery", -99);
          room3.addItem("cola", "fresh, ice-cold bottle of cola", "a");
+
      }
+
+     public void buildDialogue() {
+         // BUILD TERMINAL
+         DialogueNode start = new DialogueNode("TERMINAL:", "Welcome, operator. How can I assist?");
+         DialogueNode shipInfo = new DialogueNode("TERMINAL:", "The Hermes II is 112 years into its [REDACTED] voyage. \nSent by HomeStead Inc in search for valuable deep space specimens, artifacts, and materials.");
+         DialogueNode warning = new DialogueNode("TERMINAL:", "***WARNING*** Sensors detect another life signature onboard.");
+         DialogueNode crewStatus = new DialogueNode("TERMINAL:", "Crew Status: Unknown");
+
+         // Start options
+         start.addOption("Tell me about the ship.", shipInfo);
+         start.addOption("Check crew status.", crewStatus);
+         start.addOption("Read warning*", warning);
+         start.addEndOption("Log off.");
+
+         shipInfo.addOption("Go back.", start);
+         shipInfo.addEndOption("Log off.");
+
+         warning.addOption("Go back.", start);
+         warning.addEndOption("Log off.");
+
+         crewStatus.addOption("Go back", start);
+         crewStatus.addEndOption("Log off.");
+
+         room1.setTerminalDialogue(start);
+     }
+
 
 
     public Room getStartRoom() {

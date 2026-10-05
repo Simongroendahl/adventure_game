@@ -5,10 +5,11 @@ public class UserInterface {
 
     private Scanner scanner;
     public String highlightedText = "\u001b[1;48;2;255;169;0;30m";
+    public String boldText = "\u001B[1m";
+    public String boldTextReset = "\u001B[0m";
     public String resetColor = "\u001b[0m";
 
     // Story text
-    /*private String startDescription = "You awake in a cold dark room. You look around. You're all alone. \nYou don't know where you are, you don't remember who you are. You have a pounding headache, and feel dizzy.";*/
     private String startDescription = "The year is 3225. It has been a 112 years since you went to sleep. You're onboard the deep space research vessel Hermes II. \nYour job is to maintain the spaceship during the long voyage. You're the only one supposed to be awake right now. But that is not the case.\n";
 
     public void getIntroText() {
@@ -39,11 +40,16 @@ public class UserInterface {
         System.out.println(highlightedText + " " + text + " " + resetColor);
     }
 
+    public void printBoldTextOption(String textOption, String text)
+    {
+        System.out.println(boldText + textOption + boldTextReset + text);
+    }
+
     public void printItemList(ArrayList<Item> items) {
         if(items.isEmpty()) {
             return;
         }
-        printMessageInline("Here you see: ");
+        printMessageInline(boldText + "Here you see: " + boldTextReset);
         printMessageInline(items.getFirst().getIndefiniteName());
         for (int i = 1; i < items.size(); i++) {
             printMessageInline(", " + items.get(i).getIndefiniteName());
@@ -51,19 +57,56 @@ public class UserInterface {
         printMessage("");
     }
 
-    public void printInventoryList(ArrayList<Item> inventory) {
+    public void printInventoryList(ArrayList<Item> inventory, Weapon equipped) {
         if(inventory.isEmpty()) {
             printMessage("You have no items.");
             return;
         }
-        printMessageInline("Inventory: ");
+        printMessageInline(boldText + "INVENTORY: " + boldTextReset);
         printMessageInline(inventory.getFirst().getIndefiniteName());
         for (int i = 1; i < inventory.size(); i++) {
             printMessageInline(", and " + inventory.get(i).getIndefiniteName());
         }
         printMessage("");
-        printMessageInline("Equipped: ");
+        printMessageInline(boldText + "EQUIPPED: " + boldTextReset);
+        if(equipped == null)
+        {
+            printMessage("nothing.");
+        }
+        else {
+            printMessage(equipped.getDefiniteName());
+        }
         printMessage("");
+    }
+
+    public void printDialogueNode(DialogueNode node)
+    {
+        printMessageInline(highlightedText + " " + node.getSpeaker() + " " + resetColor + " ");
+        printMessage(node.getText());
+
+        ArrayList<DialogueOption> options = node.getOptions();
+        for (int i = 0; i < options.size(); i++) {
+            printMessage((i + 1) + ". " + options.get(i).getText());
+        }
+    }
+
+    public int getChoice(int max)
+    {
+        while(true) {
+            if(scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (choice >= 1 && choice <= max) {
+                    return choice;
+                }
+                else {
+                    scanner.nextLine();
+                }
+
+                printMessage("Choose a number between 1 and " + max + ".");
+            }
+        }
     }
 
     public String parseDirection(String input) {
@@ -78,10 +121,11 @@ public class UserInterface {
     }
 
      public void showHelp() {
-         printHighlightedMessage("Overview of commands:");
-         printMessage("1. Directions: You can go north, east, west, or south. Type in - Go North, for instance.");
-         printMessage("2. Look: Type Look, in order to get a description of the current room again.");
-         printMessage("3. Exit: Type Exit in order to close the program");
+         printMessage("");
+         printHighlightedMessage("AVAILABLE COMMANDS:");
+         printBoldTextOption("- Directions: ", "You can go north, east, west, or south. Type in - Go north, north, n for instance.");
+         printBoldTextOption("- Look: ", "Type Look, in order to get a description of the current room again.");
+         printBoldTextOption("- Exit: ", "Type Exit in order to close the program");
      }
 
      boolean runProgram = true;
@@ -89,10 +133,10 @@ public class UserInterface {
      public void runProgram(Adventure adventure) {
          printHighlightedMessage("OUR SPACE GAME");
          getIntroText();
-         printMessage("Choose:");
-         printMessage("- Start Game");
-         printMessage("- Help");
-         printMessage("- Exit");
+         printMessage(boldText + "Choose:" + boldTextReset);
+         printMessage("> Start Game");
+         printMessage("> Help");
+         printMessage("> Exit");
 
          while(runProgram) {
              String userInput = getInput();
@@ -105,11 +149,11 @@ public class UserInterface {
                 showHelp();
              }
              else if (userInput.equalsIgnoreCase("Exit")){
-                 System.out.println("Really? Boring!");
+                 printMessage("Really? Boring!");
                  runProgram = false;
              }
              else {
-                 System.out.println("Wrong input. Try again.");
+                 printMessage("Wrong input. Try again.");
              }
          }
      }

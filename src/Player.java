@@ -60,6 +60,11 @@ public class Player {
         return true;
     }
 
+    public boolean hasItem(String i)
+    {
+        return inventory.contains(i);
+    }
+
     public Item findItem(String shortName){
         for (Item item : inventory) {
             if (item.getShortName().equalsIgnoreCase(shortName)) {
@@ -133,15 +138,6 @@ public class Player {
         }
         // ramte noget med equipped.getDamage()
     }
-
-    /*public Room openRoomTwo() {
-        for (Item item : inventory) {
-            if (item.getShortName().equalsIgnoreCase("key card")) {
-
-            }
-        }
-        return null;
-    }*/
 
     public Room move(String direction) {
         Room nextRoom = switch (direction.trim().toLowerCase()) {

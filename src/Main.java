@@ -8,8 +8,6 @@ public class Main {
 
 // TO-DO LISTE
 
-// Tilføj "Equipped: " + equipped.weapon, når man skriver inventory
-    // Lav getCurrentWeapon metode
 // Overvej at lave Food om til en abstrakt klasse
     // Lav to nye subklasser, drink og food-something
 // Få EatOutcome klassen kædet til koden
