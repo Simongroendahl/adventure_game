@@ -9,6 +9,7 @@ public class Room {
     private Boolean beenInRoomBefore = false;
     private Room north, east, south, west;
     private ArrayList<Item> items;
+    private ArrayList<Enemy> enemies;
     private DialogueNode terminalDialogue;
 
 
@@ -18,6 +19,7 @@ public class Room {
         this.longDescription = longDescription;
         this.shortDescription = shortDescription;
         this.items = new ArrayList<>();
+        this.enemies = new ArrayList<>();
     }
     public ArrayList<Item> getItems(){
         return items;
@@ -128,5 +130,27 @@ public class Room {
 
     public Room getWest() {
         return west;
+    }
+
+    // ENEMY metoder
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+    }
+
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+
+    public Enemy findEnemy(String shortName) {
+        for (Enemy enemy : enemies) {
+            if (enemy.getShortName().trim().equalsIgnoreCase(shortName)) {
+                return enemy;
+            }
+        }
+        return null;
     }
 }

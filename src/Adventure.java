@@ -4,6 +4,7 @@ public class Adventure {
 
     // Vores variable
     private Player player;
+    private ArrayList<Enemy> enemies;
     private UserInterface userInterface;
     private Map map;
     private boolean gameRunning;
@@ -36,14 +37,15 @@ public class Adventure {
             map.buildMap();
             map.buildItems();
             map.buildDialogue();
+            map.buildEnemies();
             player = new Player(map.getStartRoom());
             gameRunning = true;
 
             userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
             userInterface.printMessage(player.getCurrentRoom().getDescription());
-
-            // Tilføj if-statement her, som kun printer items ud, hvis der er nogle.
             userInterface.printItemList(player.getCurrentRoom().getItems());
+            // Lav printEnemyList
+            userInterface.printEnemyList(player.getCurrentRoom().getEnemies());
 
 
             player.getCurrentRoom().setBeenInRoomBefore();
@@ -55,11 +57,11 @@ public class Adventure {
                 String command = parts[0].toLowerCase();
                 String argument = parts.length > 1 ? parts[1].trim() : "";
 
-                if(userInput.equalsIgnoreCase("help"))
+                if(userInput.trim().equalsIgnoreCase("help"))
                 {
                     userInterface.showHelp();
                 }
-                else if(userInput.equalsIgnoreCase("look")){
+                else if(userInput.trim().equalsIgnoreCase("look")){
                     userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
                     userInterface.printMessage(player.look());
                     userInterface.printItemList(player.getCurrentRoom().getItems());
@@ -174,24 +176,38 @@ public class Adventure {
                     Weapon weapon = player.getEquipped();
                     if (weapon == null)
                     {
-                        userInterface.printMessage("You have no weapon equipped.");
+                        userInterface.printMessage("You have no weapon equipped. (Equip a weapon to attack)");
                     }
                     else if (!weapon.canUse())
                     {
-                        userInterface.printMessage("Out of ammo");
+                        userInterface.printMessage("You're out of ammo");
                     }
+
                     else
                     {
-                        player.attack();
-                        userInterface.printMessage(weapon.getAttackMessage());
+                        player.attack(argument);
+                        userInterface.printMessage(weapon.getAttackMessage(player.getCurrentRoom().findEnemy(argument)));
+                        if(enemy.getHealth() <= 0) {
+                            userInterface.printMessage("The " + enemy.getShortName() + " dies.");
+                        }
+                        /*userInterface.printPlayerAttackMove(enemies);*/
                     }
+
+                    /*if(argument.isEmpty())
+                    {
+                        player.attack(argument);
+                        *//*userInterface.printMessage("Attack what?");*//*
+                    }*/
+                    /*else if(player.attack(argument) == ){
+
+                    }*/
                 }
 
                 else if (userInput.equalsIgnoreCase("inventory")) {
                     userInterface.printInventoryList(player.getInventory(), player.getEquipped());
                 }
 
-                else if (command.equals("terminal")){
+                else if (userInput.equals("terminal") || userInput.trim().equalsIgnoreCase("access terminal") || userInput.trim().equalsIgnoreCase("use terminal")){
                     DialogueNode dialogue = player.getCurrentRoom().getTerminalDialogue();
 
                     if (dialogue == null) {
@@ -221,6 +237,10 @@ public class Adventure {
                                 userInterface.printMessage(result.getDescription());
                                 userInterface.printItemList(player.getCurrentRoom().getItems());
                                 result.setBeenInRoomBefore();
+                                // IF currentRoom hasEnemies()
+                                    // Print ud beskrivelse
+                                // Else
+                                    // return null
                             }
                             else {
                                 userInterface.printMessage("You can't go that way.");

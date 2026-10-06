@@ -6,7 +6,7 @@ public class Main {
     }
 }
 
-// TO-DO LISTE
+// TODO LISTE
 
 // Overvej at lave Food om til en abstrakt klasse
     // Lav to nye subklasser, drink og food-something

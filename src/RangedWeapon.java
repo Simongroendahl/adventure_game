@@ -23,11 +23,11 @@ public class RangedWeapon extends Weapon{
     }
 
     public String getUsesLeft() {
-        return ammunition + " shots left.";
+        return ammunition + " shots left";
     }
 
     @Override
-    public String getAttackMessage() {
-        return super.getAttackMessage() + " (" + getUsesLeft() + ")";
+    public String getAttackMessage(Enemy enemy) {
+        return super.getAttackMessage(enemy) + " (" + getUsesLeft() + ")";
     }
 }

@@ -45,6 +45,22 @@ public class UserInterface {
         System.out.println(boldText + textOption + boldTextReset + text);
     }
 
+    public void printEnemyList(ArrayList<Enemy> enemies)
+    {
+        if(enemies.isEmpty()) {
+            return;
+        }
+
+        printMessageInline(boldText + "Beware! Here lurks: " + boldTextReset);
+        printMessageInline(enemies.getFirst().getShortName());
+        for (int i = 1; i < enemies.size(); i++) {
+            printMessageInline(", " + enemies.get(i).getShortName());
+        }
+        printMessage("");
+        printMessage(enemies.getFirst().getDescription());
+        printMessage("");
+    }
+
     public void printItemList(ArrayList<Item> items) {
         if(items.isEmpty()) {
             return;
@@ -86,7 +102,7 @@ public class UserInterface {
 
         ArrayList<DialogueOption> options = node.getOptions();
         for (int i = 0; i < options.size(); i++) {
-            printMessage((i + 1) + ". " + options.get(i).getText());
+            printMessage("> " + (i + 1) + ". " + options.get(i).getText());
         }
     }
 
@@ -109,6 +125,10 @@ public class UserInterface {
         }
     }
 
+    /*public void printPlayerAttackMove(ArrayList<Enemy> enemies) {
+        printMessage("You attack the " + enemies.get(0).getShortName());
+    }*/
+
     public String parseDirection(String input) {
         String normalized = input.trim().toLowerCase();
         return switch (normalized) {
@@ -123,9 +143,15 @@ public class UserInterface {
      public void showHelp() {
          printMessage("");
          printHighlightedMessage("AVAILABLE COMMANDS:");
-         printBoldTextOption("- Directions: ", "You can go north, east, west, or south. Type in - Go north, north, n for instance.");
-         printBoldTextOption("- Look: ", "Type Look, in order to get a description of the current room again.");
-         printBoldTextOption("- Exit: ", "Type Exit in order to close the program");
+         printBoldTextOption("> Directions - ", "You can go north, east, west, or south. Type: Go north, north, or n.");
+         printBoldTextOption("> Look - ", "Type: look - in order to get a description of the current room again.");
+         printBoldTextOption("> Take - ", "Type: take [item name] or take all - to loot items.");
+         printBoldTextOption("> Inventory - ", "Type: inventory - checks your current items and equipped weapon.");
+         printBoldTextOption("> Equip - ", "Type: equip [item name] - to equip a weapon.");
+         printBoldTextOption("> Health - ", "Type: health - checks your current health status");
+         printBoldTextOption("> Attack - ", "Type: attack - attack the enemy");
+         printBoldTextOption("> Access Terminal - ", "Type: terminal - to access any room's terminal.");
+         printBoldTextOption("> Exit - ", "Type Exit in order to close the program");
      }
 
      boolean runProgram = true;
@@ -141,14 +167,14 @@ public class UserInterface {
          while(runProgram) {
              String userInput = getInput();
 
-             if (userInput.equalsIgnoreCase("Start game") || (userInput.equalsIgnoreCase("start"))) {
+             if (userInput.trim().equalsIgnoreCase("Start game") || (userInput.trim().equalsIgnoreCase("Start"))) {
                  adventure.startGame();
                  runProgram = false;
              }
-             else if (userInput.equalsIgnoreCase("Help")) {
+             else if (userInput.trim().equalsIgnoreCase("Help")) {
                 showHelp();
              }
-             else if (userInput.equalsIgnoreCase("Exit")){
+             else if (userInput.trim().equalsIgnoreCase("Exit")){
                  printMessage("Really? Boring!");
                  runProgram = false;
              }
