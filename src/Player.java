@@ -144,17 +144,10 @@ public class Player {
     public void attack(String shortName) {
         if (equipped != null && equipped.canUse()) {
             equipped.use();
+            int playerDamage = equipped.getDamage();
+            Enemy enemy = currentRoom.getEnemies().get(0);
+            enemy.hit(playerDamage);
         }
-
-        /*if(shortName == findEnemy(shortName)) {
-
-        }*/
-
-        //if(currentRoom.findEnemy(name).contains(name) == name) {}
-
-        ArrayList<Enemy> currentRoomEnemy = currentRoom.getEnemies();
-        int playerDamage = equipped.getDamage();
-        currentRoomEnemy.get(0).hit(playerDamage);
     }
 
     public void hit(int damage)
@@ -162,19 +155,33 @@ public class Player {
 
     }
 
-    public Room move(String direction) {
-        Room nextRoom = switch (direction.trim().toLowerCase()) {
+    public Room getRoomInDirection(String direction){
+        return switch (direction.trim().toLowerCase()) {
             case "north", "go north", "n" -> currentRoom.getNorth();
             case "south", "go south", "s" -> currentRoom.getSouth();
             case "east", "go east", "e"  -> currentRoom.getEast();
             case "west", "go west", "w"  -> currentRoom.getWest();
             default -> null;
         };
+    }
 
-        if (nextRoom != null) {
-            currentRoom = nextRoom;
+    public MoveResult move(String direction) {
+        Room nextRoom = getRoomInDirection(direction);
+
+        if(nextRoom == null) {
+            return MoveResult.NO_EXIT;
         }
-        return nextRoom;
+
+        if(nextRoom.needsPassword()){
+            return MoveResult.NEEDS_PASSWORD;
+        }
+
+        if(nextRoom.isLockedFor(this)){
+            return MoveResult.LOCKED;
+        }
+
+        currentRoom = nextRoom;
+        return MoveResult.MOVED;
     }
 
     public String look() {

@@ -17,7 +17,6 @@ public abstract class Weapon extends Item {
     // Equip item
     public abstract void use();
 
-    //
     public String getAttackVerb() {
         return "";
     }
@@ -27,6 +26,6 @@ public abstract class Weapon extends Item {
     }
 
     public String getAttackMessage(Enemy enemy) {
-        return "You " + getAttackVerb() + " the " + enemy.getShortName() + " for " + getDamage() + " damage.";
+        return "You " + getAttackVerb() + " the " + shortName + " at the " + enemy.getShortName() + " for " + getDamage() + " damage.";
     }
 }

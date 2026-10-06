@@ -7,6 +7,12 @@ public class Room {
     private String longDescription;
     private String shortDescription;
     private Boolean beenInRoomBefore = false;
+    private String requiredItemName;
+    private String password;
+    private boolean unlocked;
+    public static final int MAX_PASSWORD_ATTEMPTS = 3;
+    private int failedAttempts = 0;
+
     private Room north, east, south, west;
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
@@ -21,6 +27,36 @@ public class Room {
         this.items = new ArrayList<>();
         this.enemies = new ArrayList<>();
     }
+
+    public void setRequiredItem(String itemName){
+        this.requiredItemName = itemName;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public boolean needsPassword(){
+        return password != null && !unlocked;
+    }
+
+    public boolean tryPassword(String attempt){
+        if (password != null && password.equalsIgnoreCase(attempt.trim())){
+            unlocked = true;
+            return true;
+        }
+        failedAttempts++;
+        return false;
+    }
+
+    public int getAttemptsLeft() {
+        return MAX_PASSWORD_ATTEMPTS - failedAttempts;
+    }
+
+    public boolean isLockedFor(Player player) {
+        return requiredItemName != null && player.findItem(requiredItemName) == null;
+    }
+
     public ArrayList<Item> getItems(){
         return items;
     }
@@ -37,11 +73,6 @@ public class Room {
     {
         items.add(new Food(shortName, longName, healthPoints));
     }
-
-    /*public void addItem(String shortName, String longName, int damage)
-    {
-        items.add(new MeleeWeapon(shortName, longName, damage));
-    }*/
 
     public void addItem(String shortName, String longName, int damage, int ammunition)
     {
@@ -149,6 +180,9 @@ public class Room {
         for (Enemy enemy : enemies) {
             if (enemy.getShortName().trim().equalsIgnoreCase(shortName)) {
                 return enemy;
+            }
+            else if(shortName.isEmpty()){
+                return enemies.get(0);
             }
         }
         return null;

@@ -45,6 +45,11 @@ public class Enemy {
     public void hit(int damage){
         health -= damage;
         System.out.println("Health left: " + health);
+
+        if(health <= 0) {
+            room.removeEnemy(room.findEnemy(shortName));
+            System.out.println(shortName + " drops dead on the ground.");
+        }
     }
 
 }

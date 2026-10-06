@@ -21,6 +21,7 @@ public class UserInterface {
     }
 
     public String getInput(){
+        printMessageInline("> ");
         return scanner.nextLine();
     }
 
