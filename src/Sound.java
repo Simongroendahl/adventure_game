@@ -1,0 +1,12 @@
+public enum Sound {
+    ENTER_ROOM_1,
+    ENTER_ROOM_2,
+    TERMINAL_INPUT,
+    ENTER_TERMINAL,
+    EXIT_TERMINAL,
+    LASER_SHOT_1,
+    LASER_SHOT_2,
+    AMBIENT_BG;
+}
+
+

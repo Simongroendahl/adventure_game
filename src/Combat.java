@@ -1,6 +1,4 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 
 public class Combat {
@@ -154,7 +152,6 @@ public class Combat {
 
     private boolean attack(Weapon weapon, Enemy target, String label) {
         weapon.use();
-
         RollResult result = combatRoll();
         int damage = calculateDamage(result, weapon.getDamage());
 
@@ -272,9 +269,6 @@ public class Combat {
             }
         }
     }
-
-
-
 }
 
 

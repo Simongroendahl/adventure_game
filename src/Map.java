@@ -2,7 +2,7 @@ public class Map {
 
     Room room1 = new Room("SECTOR 1 - THE SLEEPING PODS",
             """
-            You are in a sleeping pod chamber. There are five more sleeping pods, but all of them are empty. 
+            You are in a sleeping pod chamber. There are ten more sleeping pods, but all of them are empty. 
             There are two doors: one facing east with a key card terminal; sparks are flying from the door facing south.
             """,
             "You're back in the sleeping pod chamber");
@@ -115,8 +115,8 @@ public class Map {
     }
 
     public void buildEnemies() {
-        room1.addEnemy(enemies[0]);
-        room1.addEnemy(enemies[1]);
+        room6.addEnemy(enemies[0]);
+        room6.addEnemy(enemies[1]);
     }
 
     public void buildDialogue() {

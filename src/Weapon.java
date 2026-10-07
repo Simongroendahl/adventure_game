@@ -25,6 +25,10 @@ public abstract class Weapon extends Item {
         return "";
     }
 
+    public Sound getAudioType() {
+        return null;
+    }
+
     public String getAttackMessage(String targetName, RollResult result) {
         return switch (result) {
             case CRITICAL_HIT  -> "You " + getAttackVerb() + " the " + targetName

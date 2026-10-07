@@ -7,13 +7,15 @@ public class Adventure {
     private Player player;
     private ArrayList<Enemy> enemies;
     private UserInterface userInterface;
+    private Audio audio;
     private Map map;
     private final Random random = new Random();
     private boolean gameRunning;
 
     // Konstruktør
-    public Adventure(UserInterface userInterface) {
+    public Adventure(UserInterface userInterface, Audio audio) {
         this.userInterface = userInterface;
+        this.audio = audio;
         map = new Map();
     }
 
@@ -30,6 +32,7 @@ public class Adventure {
             int choice = userInterface.getChoice(current.getOptions().size());
             DialogueOption chosen = current.getOptions().get(choice - 1);
             current = chosen.getNextNode();
+            audio.play(Sound.TERMINAL_INPUT);
         }
 
         userInterface.printMessage("You step away from the terminal.");
@@ -38,6 +41,7 @@ public class Adventure {
     public void printRoomDescription() {
         userInterface.printHighlightedMessage(player.getCurrentRoom().getName());
         userInterface.printMessage(player.getCurrentRoom().getDescription());
+        userInterface.printMessage(" ");
         userInterface.printItemList(player.getCurrentRoom().getItems());
         userInterface.printEnemyList(player.getCurrentRoom().getEnemies());
     }
@@ -48,6 +52,7 @@ public class Adventure {
         if (dialogue == null) {
             userInterface.printMessage("There is no terminal here.");
         } else {
+            audio.play(Sound.ENTER_TERMINAL);
             runConversation(dialogue);
         }
     }
@@ -187,6 +192,7 @@ public class Adventure {
             case LOCKED -> userInterface.printMessage("The door is locked. You need a key.");
             case NEEDS_PASSWORD -> askForPassword(direction);
             case MOVED -> {
+                audio.play(Sound.ENTER_ROOM_2);
                 printRoomDescription();
                 player.getCurrentRoom().setBeenInRoomBefore();
             }
@@ -234,6 +240,8 @@ public class Adventure {
             map.buildWorld();
             player = new Player(map.getStartRoom());
             gameRunning = true;
+            audio.startAmbient();
+            audio.play(Sound.ENTER_ROOM_2);
             printRoomDescription();
             player.getCurrentRoom().setBeenInRoomBefore();
 
@@ -258,7 +266,10 @@ public class Adventure {
                         if(argument.equals("terminal")) useTerminal();
                         else userInterface.printMessage(command + "what?");
                     }
-                    case "exit" -> exitGame();
+                    case "exit" -> {
+                        audio.close();
+                        exitGame();
+                    }
                     default -> tryToMove(userInput);
                 }
                 }
