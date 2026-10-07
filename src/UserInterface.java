@@ -107,6 +107,22 @@ public class UserInterface {
         }
     }
 
+    public void printEatResult(EatResult result, String name) {
+        switch (result) {
+            case EATEN -> printMessage("You ate the " + name + ".");
+            case NOT_FOOD -> printMessage("That " + name + " can definitely not be eaten.");
+            case NOT_FOUND -> printMessage("There is no " + name + " to eat here.");
+        }
+    }
+
+    public void printEquipResult(WeaponResult result, String name) {
+        switch (result) {
+            case IS_WEAPON -> printMessage("You equipped the " + name + ".");
+            case NOT_WEAPON -> printMessage("That " + name + " is definitely not meant to be equipped.");
+            case NOT_FOUND -> printMessage("There is no " + name + " to equip here.");
+        }
+    }
+
     public int getChoice(int max)
     {
         while(true) {

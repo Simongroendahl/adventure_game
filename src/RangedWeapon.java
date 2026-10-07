@@ -26,8 +26,19 @@ public class RangedWeapon extends Weapon{
         return ammunition + " shots left";
     }
 
-    @Override
+    /*@Override
     public String getAttackMessage(Enemy enemy) {
         return super.getAttackMessage(enemy) + " (" + getUsesLeft() + ")";
+    }*/
+
+    @Override
+    public String getAttackMessage(String targetName, RollResult result){
+        return switch (result) {
+            case CRITICAL_HIT -> "You charge the stasis laser rifle to full capacity and breathe in deep. "
+                                + "A blinding blue light erupts from the barrel and engulfs the " + targetName + ".";
+            case HIT -> "The rifle hums and a pulse of blue light strikes the " + targetName + ".";
+            case CRITICAL_FAIL -> "The rifle starts shaking, as you pull the trigger. The charge disappears.";
+
+        };
     }
 }

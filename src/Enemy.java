@@ -36,20 +36,19 @@ public class Enemy {
         return weapon;
     }
 
-    public void attack(Player player) {
+    /*public void attack(Player player) {
         int playerHealth = player.getHealth();
         playerHealth += weapon.getDamage();
-    }
+    }*/
 
-    // TODO slet SOUT her
-    public void hit(int damage){
+    public boolean hit(int damage){
         health -= damage;
-        System.out.println("Health left: " + health);
 
         if(health <= 0) {
-            room.removeEnemy(room.findEnemy(shortName));
-            System.out.println(shortName + " drops dead on the ground.");
+            room.removeEnemy(this);
+            return true;
         }
+        return false;
     }
 
 }

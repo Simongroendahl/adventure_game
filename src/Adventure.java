@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Adventure {
 
@@ -7,6 +8,7 @@ public class Adventure {
     private ArrayList<Enemy> enemies;
     private UserInterface userInterface;
     private Map map;
+    private final Random random = new Random();
     private boolean gameRunning;
 
     // Konstruktør
@@ -109,14 +111,7 @@ public class Adventure {
         if (argument.isEmpty()) {
             userInterface.printMessage("Equip what?");
         } else {
-            WeaponResult result = player.equip(argument);
-            if (result == WeaponResult.IS_WEAPON) {
-                userInterface.printMessage("You equipped the " + argument + ".");
-            } else if (result == WeaponResult.NOT_WEAPON) {
-                userInterface.printMessage(("That " + argument + " can definitely not be equipped."));
-            } else if (result == WeaponResult.NOT_FOUND) {
-                userInterface.printMessage("There is no " + argument + " to equip here.");
-            }
+            userInterface.printEquipResult(player.equip(argument), argument);
         }
     }
 
@@ -124,18 +119,12 @@ public class Adventure {
         if (argument.isEmpty()) {
             userInterface.printMessage("Eat what?");
         } else {
-            EatResult result = player.eat(argument);
-            if (result == EatResult.EATEN) {
-                userInterface.printMessage("You ate the " + argument + ".");
-            } else if (result == EatResult.NOT_FOOD) {
-                userInterface.printMessage(("That " + argument + " can definitely not be eaten."));
-            } else if (result == EatResult.NOT_FOUND) {
-                userInterface.printMessage("There is no " + argument + " to eat here.");
-            }
+            userInterface.printEatResult(player.eat(argument), argument);
         }
     }
 
-    private void attack(String argument) {
+    // GAMMEL ATTACK METODE
+    /*private void attack(String argument) {
         Weapon weapon = player.getEquipped();
 
         if (weapon == null) {
@@ -151,16 +140,30 @@ public class Adventure {
         Enemy target = player.getCurrentRoom().findEnemy(argument);
         player.attack(argument);
         userInterface.printMessage(weapon.getAttackMessage(target));
+    }*/
 
-        /*else if(argument.isEmpty()) {
-            player.attack(argument);
-            userInterface.printMessage(weapon.getAttackMessage(player.getCurrentRoom().findEnemy(argument)));
+    public void startCombat() {
+        Room room = player.getCurrentRoom();
+
+        if(room.getEnemies().isEmpty()) {
+            userInterface.printMessage("There is nothing to fight here.");
+            return;
         }
-        else
-        {
-            player.attack(argument);
-            userInterface.printMessage(weapon.getAttackMessage(player.getCurrentRoom().findEnemy(argument)));
-        }*/
+
+        CombatResult result = new Combat(player, room, userInterface, random).run();
+
+        switch (result) {
+            case VICTORY -> userInterface.printMessage("The room falls silent");
+            case FLED -> {
+                printRoomDescription();
+                player.getCurrentRoom().setBeenInRoomBefore();
+            }
+            case DEFEAT -> {
+                userInterface.printMessage("Everything goes dark...");
+                userInterface.printHighlightedMessage("***GAME OVER***");
+                gameRunning = false;
+            }
+        }
     }
 
     public void exitGame() {
@@ -247,7 +250,7 @@ public class Adventure {
                     case "drop" -> dropItem(argument);
                     case "eat" -> eat(argument);
                     case "equip" -> equip(argument);
-                    case "attack" -> attack(argument);
+                    case "attack" -> startCombat();
                     case "health" -> checkHealth();
                     case "inventory" -> userInterface.printInventoryList(player.getInventory(), player.getEquipped());
                     case "terminal" -> useTerminal();

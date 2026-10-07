@@ -132,27 +132,18 @@ public class Player {
         }
     }
 
-    // ramte noget med equipped.getDamage()
-
-    // 1. Fjende angribes med equipped våben
-    // Fjende mister health svarende til player attack damage
-    // 2. Hvis fjenden dør, droppes våben og forsvinder fra rummet (eller bliver til et lig)
-    // 3. Overlever fjenden skal den angribe spilleren
-    // 4. Er Player stadig i live, skal man kunne: gå ud af rummet, skifte våben, eller attack'e igen.
-    // 5. Hvis spiller mister al sin health, er spillet slut. (exit)
-
-    public void attack(String shortName) {
+    /*public void attack(String shortName) {
         if (equipped != null && equipped.canUse()) {
             equipped.use();
             int playerDamage = equipped.getDamage();
             Enemy enemy = currentRoom.getEnemies().get(0);
             enemy.hit(playerDamage);
         }
-    }
+    }*/
 
     public void hit(int damage)
     {
-
+        health -= damage;
     }
 
     public Room getRoomInDirection(String direction){

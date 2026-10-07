@@ -25,7 +25,24 @@ public abstract class Weapon extends Item {
         return "";
     }
 
-    public String getAttackMessage(Enemy enemy) {
-        return "You " + getAttackVerb() + " the " + shortName + " at the " + enemy.getShortName() + " for " + getDamage() + " damage.";
+    public String getAttackMessage(String targetName, RollResult result) {
+        return switch (result) {
+            case CRITICAL_HIT  -> "You " + getAttackVerb() + " the " + targetName
+                    + " with the " + getShortName() + ". A perfect hit!";
+            case HIT           -> "You " + getAttackVerb() + " the " + targetName
+                    + " with the " + getShortName() + ".";
+            case CRITICAL_FAIL -> "You try to " + getAttackVerb() + " the " + targetName
+                    + " with the " + getShortName() + ", but miss completely.";
+        };
+    }
+
+    public String getEnemyAttackMessage(String attackerName, RollResult result) {
+        return switch (result) {
+            case CRITICAL_HIT  -> "The " + attackerName + " strikes you with its " + getShortName()
+                    + " with terrible force!";
+            case HIT           -> "The " + attackerName + " attacks you with its " + getShortName() + ".";
+            case CRITICAL_FAIL -> "The " + attackerName + " attacks you with its " + getShortName()
+                    + " but misses.";
+        };
     }
 }
