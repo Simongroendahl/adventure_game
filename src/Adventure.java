@@ -41,7 +41,7 @@ public class Adventure {
     public void printRoomDescription() {
         userInterface.printHighlightedMessage(player.getCurrentRoom().getName());
         userInterface.printMessage(player.getCurrentRoom().getDescription());
-        userInterface.printMessage(" ");
+        userInterface.printMessage("");
         userInterface.printItemList(player.getCurrentRoom().getItems());
         userInterface.printEnemyList(player.getCurrentRoom().getEnemies());
     }

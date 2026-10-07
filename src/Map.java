@@ -3,11 +3,10 @@ public class Map {
     Room room1 = new Room("SECTOR 1 - THE SLEEPING PODS",
             """
             You are in a sleeping pod chamber. There are ten more sleeping pods, but all of them are empty. 
-            There are two doors: one facing east with a key card terminal; sparks are flying from the door facing south.
-            """,
+            There are two doors: one facing east with a key card terminal; sparks are flying from the door facing south.""",
             "You're back in the sleeping pod chamber");
     Room room2 = new Room("SECTOR 2 - THE HALLWAY", """
-            *** ACCESS GRANTED *** The door opens, the key card worked. \nA loud alarm is blaring through the speakers. The hallway is dark, only lit up by waves of red light from the alarm. 
+            *** ACCESS GRANTED ***\nA loud alarm is blaring through the speakers. The hallway is dark, only lit up by waves of red light from the alarm. 
             You see a door at the end of the hallway closing. A dark shadow runs through it. 
             A window is on your right that shows the escape pod room to the south. (go east / go west)""",
             "You're back in the hallway.");
@@ -144,10 +143,21 @@ public class Map {
         [END OF LOG]\"""");
         DialogueNode logEntryLabResults = new DialogueNode("AUDIO LOG - LAB RESULTS", "Well..");
         DialogueNode engineStatus = new DialogueNode("TERMINAL:", "ENGINE STATUS: Fully functioning - Engine at full capacity.");
+        DialogueNode systemsCheck = new DialogueNode("TERMINAL: ", """
+        
+        
+        \033[1;97mSCANNERS:
+        \033[0;97mCabin pressure:       \033[0;92m100%
+        \033[0;97mGravity:              \033[0;92m100%
+        \033[0;97mWater:                \033[0;92m87%
+        \033[0;97mTemperature:          \033[0;92m93%
+        \033[0;97mBio-metrics:          \033[1;91m1/11 (WARNING: Unable to scan bio-metrics of 10 out of 11 employees) 
+        \033[0;97mOxygen levels:        \033[1;91m131% (WARNING: Oxygen consumption exceeds crew requirements by 31%)\u001b[0m
+        """);
 
         // Start options
         start.addOption("Tell me about the ship.", shipInfo);
-        start.addOption("Check ship status", shipStatus);
+        start.addOption("Run systems check", systemsCheck);
         start.addOption("Read log entries", logEntries);
         start.addEndOption("Log off.");
 
@@ -160,7 +170,11 @@ public class Map {
         shipInfo.addOption("Go back.", start);
         shipInfo.addEndOption("Log off.");
 
+        systemsCheck.addOption("Go back", start);
+
+
         shipStatus.addOption("Check engine status.", engineStatus);
+        shipStatus.addOption("Run systems check", systemsCheck);
         shipStatus.addOption("Check crew status.", crewStatus);
         shipStatus.addOption("Check Life Support", checkLifeSupport);
 

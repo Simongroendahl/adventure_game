@@ -102,6 +102,7 @@ public class UserInterface {
         printMessage(node.getText());
 
         ArrayList<DialogueOption> options = node.getOptions();
+        printMessage("");
         for (int i = 0; i < options.size(); i++) {
             printMessage("> " + (i + 1) + ". " + options.get(i).getText());
         }
@@ -141,10 +142,6 @@ public class UserInterface {
             }
         }
     }
-
-    /*public void printPlayerAttackMove(ArrayList<Enemy> enemies) {
-        printMessage("You attack the " + enemies.get(0).getShortName());
-    }*/
 
     public String parseDirection(String input) {
         String normalized = input.trim().toLowerCase();
