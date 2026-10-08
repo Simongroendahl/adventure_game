@@ -1,94 +1,140 @@
 public class Map {
 
-    Room room1 = new Room("SECTOR 1 - THE SLEEPING PODS", """
+    Room room1 = new Room("==== SECTOR 1: THE SLEEPING PODS ====", """
             
-    \033[0;97mYou are in a sleeping pod chamber. There are ten more sleeping pods, but all of them are empty. 
-    There are two doors: one facing east with a key card terminal; sparks are flying from the door facing south.\u001b[0m""",
+    \033[0;97mYou awake. You're in a sleeping pod chamber. There are ten more sleeping pods - all are open, all are empty. 
+    You step out, and feel a sharp pain under your foot. Broken glass. You're bleeding, but you don't think much of it.
+    There are two doors: the one facing [south] is bulging inwards, as if something big ran into it from the other room.
+    The sign next to it glows red, displaying: [MALFUNCTION]. The door to the [east] has a key card terminal.\u001b[0m""",
             "\033[0;97m\nYou're back in the sleeping pod chamber\u001b[0m", null);
 
-    Room room2 = new Room("SECTOR 2 - THE HALLWAY", """
+    Room room2 = new Room("==== SECTOR 2: THE HALLWAY ====", """
             
     \033[1;92m*** ACCESS GRANTED ***\u001b[0m
-    \033[0;97mA loud alarm is blaring through the speakers. The hallway is dark, only lit up by waves of red light from the alarm. 
-    A dark shadow runs through the closing door, at the end of  the hallway. 
-    A window is on your right that shows the escape pod room to the south. (go east / go west)\u001b[0m""",
+    \033[0;97mA loud alarm is blaring through the speakers. The hallway is only briefly lit up by the pulsating red color from the alarm. 
+    You can vaguely make out some smeared writing on the wall. "THEY ARE EVERYWHERE. THEY ARE US."
+    Then your eye catches something. A shape. Shapes. Something scurrying rapidly across the floor, disappearing behind the closing door down the hallway.
+    Not far from the door, you find the author of the smeared writing. Or whatever is left of them. 
+    It's hard to look away, but you're distracted by what his hand, across the room from him, is still holding on to.\u001b[0m""",
             "\033[0;97m\nYou're back in the hallway.\u001b[0m", Sound.ALARM_SIREN);
 
-    Room room3 = new Room("SECTOR 3 - THE DINING ROOM", """
+    /*Room room3 = new Room("==== SECTOR 3: THE DINING ROOM ====", """
     
     \033[0;97mYou are in a dining room. The place is completely empty - except for a plate with a fresh burger on it on the dining table. 
     There is a door to the south. (go south / go west)\u001b[0m""",
-            "\033[0;97m\nYou're back in the dining room.\u001b[0m", null);
+            "\033[0;97m\nYou're back in the dining room.\u001b[0m", null);*/
 
-    Room room4 = new Room("SECTOR 4 - THE OFFICE ROOM", """
+    Room room3 = new Room("==== SECTOR 3: THE RESEARCH LAB ====", """
     
-    \033[0;97mAs the door opens, you're met with a sight you can't understand. 
-    A huge mass takes up most of the room space. Massive tentacles surrounding it move idly. It looks asleep. 
-    In the far corner, you see your old desk. You know the password for the escape pods might be in the top drawer.\u001b[0m""",
-            "\033[0;97m\nYou're back in the office room. The mass is not moving.\u001b[0m", null);
+    \033[0;97mFor the first time, since you woke up you're met with a familiar view. The always messy lab, that must be physically impossible to keep tidy.
+    But it's not messy in the usual way. The glass from a big containment unit you've never seen before lays scattered across the floor.
+    You hear beeping from the monitor on the desk to your right. You might want to check out the [terminal].\u001b[0m""",
+            "\033[0;97m\nYou're back in the research lab.\u001b[0m", Sound.RESEARCH_LAB);
 
-    Room room5 = new Room("SECTOR 5 - THE ESCAPE POD", """
+    Room room4 = new Room("==== SECTOR 4: THE ENGINE ROOM ====", """
+    
+    \033[0;97mThe engine room is quiet except for the low hum of the reactor. Then you see the crew.
+    They are all here, fused to the walls in dark, fibrous growths, their bodies hanging loose beneath swollen stomachs. 
+    Something moves inside one of them, slowly pushing against the stretched skin. Then another moves. And another.
+    
+    Beside the reactor, a terminal is still glowing: ***ESCAPE POD ACCESS CODE: 42***\u001b[0m""",
+            "\033[0;97m\nYou're back in the engine room.\u001b[0m", null);
+
+    Room room5 = new Room("==== SECTOR 5: THE ESCAPE POD ====", """
     
     \033[0;97mAs you run inside the room, the doors rapidly shut behind you.
     You run to the console and with shaking hands type in your destination.
     You sit down on the seat, tighten the seatbelt, and feel a sudden bump as the pod detaches itself.
     The door that barely held out the aliens slowly opens, and you see tentacles poke through.
+    
     You made it.\u001b[0m""",
             "\033[0;97m\nYou're back in the escape pod.\u001b[0m", null);
 
-    Room room6 = new Room("SECTOR 6 - THE HALLWAY WITH WINDOWS", """
-    \033[0;97mHuge windows cover the eastern side of the hallway walls. You look out at the vast space, sprinkled with stars and planets you have never seen before. 
-    A sudden knock on the window draws your attention. 
-    You see a person in a spacesuit floating in the dark. There's a huge hole in the helmet, with red liquid around the broken glass.\u001b[0m""",
-            "\033[0;97m\nYou're back in the hallway.\u001b[0m", null);
-
-    Room room7 = new Room("SECTOR 7 - THE CHANGING ROOM", """
-    \033[0;97mA thick steam rolls out the hallway, as you enter. Every shower is running. It's hard to hear anything but the dripping water. 
-    You look down and see red liquid flush down the drain.\u001b[0m""",
-            "\033[0;97m\nYou're back in the steam-filled hallway. And something is moving slowly, intentionally, in the steam.\u001b[0m", null);
-
-    Room room8 = new Room("SECTOR 8 - THE MONITORING ROOM", """
-    \033[0;97mThere are strange machines, with surveillance video on seven of the nine screens, temperature and heart rate monitoring.
-    By the door facing north, you see a terminal under the "ESCAPE POD" room sign. The screen flickers, but reads: "ENTER PASSWORD"\u001b[0m""",
-            "\033[0;97m\nYou're back in the monitoring room.\u001b[0m", null);
-
-    Room room9 = new Room("SECTOR 9 - THE LABORATORY", """
+    Room room6 = new Room("==== SECTOR 6: THE WINDOW ROOM ====", """
+    \033[0;97mHuge windows cover the entire eastern side of the room. You look out at the vast space. 
+    Stars and planets and galaxies sprinkled the hungry, black void looking at you. 
+    A sudden knock on the glass draws your attention. Seated on the ground, a person in a spacesuit is banging their head idly against the glass.
+    There's a huge hole in the helmet, with red liquid around the broken glass. 
     
-    \033[0;97mAn immediate horrible smell fills the room, as the door opens. You see a familiar face. But it's not where it belongs. 
-    Stuck on the walls, you see several people you used to remember. 
-    The medic, the mechanic, and then you see the face you hoped not to see - your wife's. 
-    They are covered in organic matter. Their bellies are hanging out, and look extremely big. Something is moving inside of them.\u001b[0m""",
-            "\033[0;97m\nYou're back in the laboratory.\u001b[0m", null);
+    Three creatures crawl out of the helmet. Small, pale, celapholod-like organisms, roughly 40 cm long. 
+    They scurry across the floor towards you, leaving red trails behind them. Then they pause in their tracks, looking at you with no apparent eyes.\u001b[0m""",
+            "\033[0;97m\nYou're back in the window room.\u001b[0m", null);
+
+    Room room7 = new Room("==== SECTOR 7: THE CARGO BAY ====", """
+    \033[0;97mThe cargo bay is vast and poorly lit. Rows of steel containers are stacked along the walls, most marked with faded mission numbers.
+    At the center of the bay stands a tall, black monolith.
+    Its surface is perfectly smooth, yet covered in shallow markings that resemble ancient human writing. No known language matches them.
+    The material is unlike anything in the ship's database. It is cold to the touch, but the scanner reports no measurable temperature.
+    You have no memory of seeing it in the mission inventory.\u001b[0m""",
+            "\033[0;97m\nYou're back in the cargo bay.\u001b[0m", null);
+
+    Room room8 = new Room("==== SECTOR 8: THE AIRLOCK ====", """
+    \033[0;97mThe airlock is cold and sterile. Heavy doors seal the chamber from either side, surrounded by decontamination equipment and emergency controls.
+    The system appears to be offline. To the north, a sealed door leads back toward the escape pod chamber. A small display beside it is still powered.
+            
+    The screen reads: [ENTER PASSWORD:]
+            
+    A thin layer of frost covers the floor beneath the inner door.\u001b[0m""",
+            "\033[0;97m\nYou're back in the airlock.\u001b[0m", null);
+
+    Room room9 = new Room("==== SECTOR 9: CREW QUARTERS ====", """
+    
+    \033[0;97mAThe crew quarters are smaller than you expected. 
+    Six rooms, each still carrying the small evidence of lives interrupted: a book left open, clothes folded beside a bed, a photograph taped to a wall.
+    Someone has left a half-finished chess game on a table. The pieces are still where they were played. 
+    There are no signs of a struggle here. For a moment, it feels less like a dead ship and more like everyone simply stepped out.\u001b[0m""",
+            "\033[0;97m\nYou're back in the crew quarters.\u001b[0m", null);
 
     Weapon[] weapons = {
             new MeleeWeapon("wrench", "old, rusty [wrench]", 20),
             new RangedWeapon("laser rifle", "stasis [laser rifle]", 30, 5),
-            new MeleeWeapon("tentacle", "sharp tentacle", 20),
+            new MeleeWeapon("claw", "sharp metal-like claw", 30),
             new MeleeWeapon("beak", "sharp beak", 5)
     };
 
     Enemy[] enemies = {
-            new Enemy("flying squid", "asdf", "description", 50, weapons[2], room7),
-            new Enemy("flying squid", "asdfTwo", "descriptionTwo", 50, weapons[2], room7),
+            // MAIN MONSTER
+            new Enemy("xenoform", "xenoform", """
+            Something large moves in the darkness. 
+            It emerges slowly, deliberately. It is enormous, all muscle, claws, teeth, and darkened flesh stretched tight over its frame, with limbs that bend at the wrong places.
+            Its head tilts to the side, observing you - just the way it has since before you woke up. There is no hatred where its eyes should be. No recognition. Only hunger.
+            You understand, with sudden certainty, that it isn't deciding whether to kill you.
+            It's deciding when.""", 100, weapons[2], room7),
 
             // ENEMY CRITTERS
-            new Enemy("tiny squid 1", "long desc tiny squid", "\033[0;97mThree, small squids claw their way out of the belly. They scurry around the floor, leaving red trails behind them.\nThen they pause and stare with no eyes. They've noticed you.\u001b[0m", 20, weapons[3], room6),
-            new Enemy("tiny squid 2", "long desc tiny squid", "description", 20, weapons[3], room6),
-            new Enemy("tiny squid 3", "long desc tiny squid", "description", 20, weapons[3], room6),
+            new Enemy("cephalopod 1", "long desc tiny squid", "", 20, weapons[3], room6),
+            new Enemy("cephalopod 2", "long desc tiny squid", "", 20, weapons[3], room6),
+            new Enemy("cephalopod 3", "long desc tiny squid", "", 20, weapons[3], room6),
     };
 
      public void buildItems(){
+         //SECTOR 1: The Sleeping Pods
          room1.addItem("key card", "bloodied [key card]", "a");
          room1.addItem(weapons[0]);
-         room2.addItem(weapons[1]);
 
+         // SECTOR 2: The Hallway
          room2.addItem("flash light", "robust [flash light]", "a");
+         room2.addItem(weapons[1]); //LASER RIFLE
 
-         room3.addItem("burger", "a fresh [burger]", 10);
-         room3.addItem("battery", "smart space rocket laser battery", -99);
-         room3.addItem("cola", "fresh, ice-cold bottle of cola", "a");
+         // SECTOR 3: The Research Lab
+         room3.addItem("battery", "fusion battery", -99);
+         room3.addItem("cola", "fresh, ice-cold bottle of Homestead cola", 40);
 
-         room9.addItem("stim pack", "a stim pack for medical emergencies", 20);
+         // SECTOR 4: The Engine Room
+
+         // SECTOR 5: The Escape Pods
+
+         // SECTOR 6: The Window Room
+         room6.addItem("stim pack", "military-grade [stim pack] (healing)", 40);
+
+         // SECTOR 7: The Cargo Bay
+
+         // SECTOR 8: The Airlock
+
+         // SECTOR 9: Crew Quarters
+         room9.addItem("burger", "fresh [burger]", 10);
+
+         room9.addItem("stim pack", "[stim pack] for medical emergencies", 20);
      }
 
     public Room getStartRoom() {
@@ -97,7 +143,7 @@ public class Map {
 
     public void buildMap() {
         room1.setEast(room2);
-        room1.setSouth(room4);
+        /*room1.setSouth(room4);*/
 
         room2.setWest(room1);
         room2.setEast(room3);
@@ -130,18 +176,17 @@ public class Map {
 
     public void buildEnemies() {
         room7.addEnemy(enemies[0]);
-        room7.addEnemy(enemies[1]);
 
         // Squid critters
+        room6.addEnemy(enemies[1]);
         room6.addEnemy(enemies[2]);
         room6.addEnemy(enemies[3]);
-        room6.addEnemy(enemies[4]);
     }
 
     public void buildDialogue() {
         // BUILD TERMINAL
         DialogueNode start = new DialogueNode("==== SHIP SYSTEMS TERMINAL ====", "");
-        DialogueNode shipInfo = new DialogueNode("==== SHIP STATUS OVERVIEW ====", """
+        DialogueNode shipInfo = new DialogueNode("==== TERMINAL: SHIP STATUS OVERVIEW ====", """
         
         
         \033[1;97mSHIP STATUS:
@@ -159,9 +204,9 @@ public class Map {
         \033[0;97mCrew:                           12/11 (ERROR)\u001b[0m""");
 
 
-        DialogueNode logEntries = new DialogueNode("==== LOG DATABASE ====", "");
+        DialogueNode logEntries = new DialogueNode("==== TERMINAL: LOG DATABASE ====", "");
 
-        DialogueNode logEntryHelios = new DialogueNode("AUDIO LOG - DRILLING STATION HELIOS", """
+        DialogueNode logEntryHelios = new DialogueNode("==== TERMINAL: DRILLING STATION HELIOS ====", """
         
         \033[1;97mLOG DATABASE:
         \"I’m recording this because I need to know if I’m going insane, or if I’m just bored.
@@ -175,9 +220,9 @@ public class Map {
         I cut myself on a scalpel, and I could have sworn that I saw the water move towards the drop of blood next to it.
         [END OF LOG]\"""");
 
-        DialogueNode logLabResults = new DialogueNode("==== SST: LABORATORY DATABASE ====", "");
+        DialogueNode logLabResults = new DialogueNode("==== TERMINAL: LABORATORY DATABASE ====", "");
 
-        DialogueNode labResultsIC04 = new DialogueNode("==== SHIP SYSTEMS TERMINAL ====", """
+        DialogueNode labResultsIC04 = new DialogueNode("==== TERMINAL: LABORATORY DATABASE ====", """
         
         
         \033[1;97mLAB RESULTS: ICE CORE SAMPLE 04
@@ -195,7 +240,7 @@ public class Map {
                 
         — L. Chen\u001b[0m""");
 
-        DialogueNode labResultsOS02 = new DialogueNode("==== SHIP SYSTEMS TERMINAL====", """
+        DialogueNode labResultsOS02 = new DialogueNode("==== TERMINAL: LABORATORY DATABASE ====", """
         
         
         \033[1;97mLAB RESULTS: ORGANIC SAMPLE 04
@@ -214,7 +259,7 @@ public class Map {
                 
         — L. Chen\u001b[0m""");
 
-        DialogueNode systemsCheck = new DialogueNode("==== SYSTEM DIAGNOSTICS ====", """
+        DialogueNode systemsCheck = new DialogueNode("==== TERMINAL: SYSTEM DIAGNOSTICS ====", """
         
         
         \033[1;97mSCANNERS:
@@ -228,7 +273,7 @@ public class Map {
         
         \033[0;97mUnregistered biological signature detected.\u001b[0m""");
 
-        DialogueNode bioSignature = new DialogueNode("==== SYSTEM DIAGNOSTICS ====", """
+        DialogueNode bioSignature = new DialogueNode("==== TERMINAL: SYSTEM DIAGNOSTICS ====", """
          
          
          \033[1;97mBIOLOGICAL SCAN:
@@ -241,7 +286,7 @@ public class Map {
 
         // Start options
         start.addOption("[SHIP STATUS]", shipInfo);
-        start.addOption("[SYSTEM DIAGNOSTICS]", systemsCheck);
+        start.addOption("[RUN SYSTEM DIAGNOSTICS]", systemsCheck);
         start.addOption("[LOG DATABASE]", logEntries);
         start.addEndOption("[Log off]");
 
@@ -271,7 +316,7 @@ public class Map {
 
         bioSignature.addOption("[Go back]", start);
 
-        room1.setTerminalDialogue(start);
+        room3.setTerminalDialogue(start);
     }
 
     public void buildWorld() {

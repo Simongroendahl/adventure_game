@@ -209,7 +209,6 @@ public class Adventure {
 
         if (target.getAttemptsLeft() < Room.MAX_PASSWORD_ATTEMPTS) {
             userInterface.printMessage("The keypad blinks: " + target.getAttemptsLeft() + " of " + Room.MAX_PASSWORD_ATTEMPTS + " attempts left.");
-
         }
 
         userInterface.printMessage("A keypad blocks the door. Enter password: ");
@@ -228,6 +227,7 @@ public class Adventure {
             }
 
             if (target.getAttemptsLeft() > 0) {
+                audio.play(Sound.ERROR);
                 userInterface.printMessage("Wrong password. " + target.getAttemptsLeft() + " attempt(s) left.");
                 userInterface.printMessage("Type: cancel - to step away");
             }
@@ -262,7 +262,7 @@ public class Adventure {
                 case "health" -> checkHealth();
                 case "inventory" -> userInterface.printInventoryList(player.getInventory(), player.getEquipped());
                 case "terminal" -> useTerminal();
-                case "access", "use" -> {
+                case "access", "use", "check", "enter" -> {
                     if (argument.equals("terminal")) useTerminal();
                     else userInterface.printMessage(command + " what?");
                 }

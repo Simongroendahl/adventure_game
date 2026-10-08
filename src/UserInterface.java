@@ -235,6 +235,7 @@ public class UserInterface {
         printBoldTextOption("> ATTACK: ", whiteText + "Type 'attack' to initiate combat." + boldTextReset);
         printBoldTextOption("> TERMINAL: ", whiteText + "Type 'terminal' to access any room's terminal." + boldTextReset);
         printBoldTextOption("> EXIT: ", whiteText + "Type 'exit' in order to close the program." + boldTextReset);
+        printMessage("");
     }
 
     boolean runProgram = true;

@@ -9,6 +9,7 @@ public class Audio {
     private Clip enterRoomOne = load("Enter_Room_1.wav");
     private Clip enterRoomTwo = load("Enter_Room_2.wav");
     private Clip alarmSiren = load("Alarm_Siren.wav");
+    private Clip researchLab = load("Research_Lab.wav");
 
     private Clip itemPickup = load("Item_Pickup.wav");
     private Clip terminalInput = load("Terminal_Input.wav");
@@ -18,7 +19,6 @@ public class Audio {
     // Våben lydeffekter
     private Clip meleeHitOne = load("Melee_Hit_1.wav");
     private Clip laserShotOne = load("Laser_Shot_1.wav");
-    private Clip laserShotTwo = load("Laser_Shot_2.wav");
 
     protected Clip mainMenu = load("Main_Menu_BG.wav");
     protected Clip ambientBG = load("Ambient_BG.wav");
@@ -36,6 +36,7 @@ public class Audio {
         Clip clip = switch (sound) {
             case ENTER_ROOM_1 -> enterRoomOne;
             case ENTER_ROOM_2 -> enterRoomTwo;
+            case RESEARCH_LAB -> researchLab;
             case ITEM_PICKUP -> itemPickup;
             case ERROR -> error;
             case ALARM_SIREN -> alarmSiren;
@@ -43,7 +44,6 @@ public class Audio {
             case ENTER_TERMINAL -> enterTerminal;
             case MELEE_HIT_1 -> meleeHitOne;
             case LASER_SHOT_1 -> laserShotOne;
-            case LASER_SHOT_2 -> laserShotTwo;
             case MAIN_MENU -> mainMenu;
             case AMBIENT_BG -> ambientBG;
         };
