@@ -13,11 +13,9 @@ public class RangedWeapon extends Weapon{
 
     // Equip item
     public void use() {
-        /*System.out.println("You " + getAttackVerb() + " the " + shortName);*/
         ammunition--;
     }
 
-    //
     public String getAttackVerb() {
         return "fire";
     }
@@ -25,11 +23,6 @@ public class RangedWeapon extends Weapon{
     public String getUsesLeft() {
         return ammunition + " shots left";
     }
-
-    /*@Override
-    public String getAttackMessage(Enemy enemy) {
-        return super.getAttackMessage(enemy) + " (" + getUsesLeft() + ")";
-    }*/
 
     @Override
     public String getAttackMessage(String targetName, RollResult result){

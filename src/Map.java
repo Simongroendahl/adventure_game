@@ -4,28 +4,28 @@ public class Map {
             
     \033[0;97mYou are in a sleeping pod chamber. There are ten more sleeping pods, but all of them are empty. 
     There are two doors: one facing east with a key card terminal; sparks are flying from the door facing south.\u001b[0m""",
-            "\033[0;97m\nYou're back in the sleeping pod chamber\u001b[0m");
+            "\033[0;97m\nYou're back in the sleeping pod chamber\u001b[0m", null);
 
     Room room2 = new Room("SECTOR 2 - THE HALLWAY", """
             
     \033[1;92m*** ACCESS GRANTED ***\u001b[0m
     \033[0;97mA loud alarm is blaring through the speakers. The hallway is dark, only lit up by waves of red light from the alarm. 
-    You see a door at the end of the hallway closing. A dark shadow runs through it. 
+    A dark shadow runs through the closing door, at the end of  the hallway. 
     A window is on your right that shows the escape pod room to the south. (go east / go west)\u001b[0m""",
-            "\033[0;97m\nYou're back in the hallway.\u001b[0m");
+            "\033[0;97m\nYou're back in the hallway.\u001b[0m", Sound.ALARM_SIREN);
 
     Room room3 = new Room("SECTOR 3 - THE DINING ROOM", """
     
     \033[0;97mYou are in a dining room. The place is completely empty - except for a plate with a fresh burger on it on the dining table. 
     There is a door to the south. (go south / go west)\u001b[0m""",
-            "\033[0;97m\nYou're back in the dining room.\u001b[0m");
+            "\033[0;97m\nYou're back in the dining room.\u001b[0m", null);
 
     Room room4 = new Room("SECTOR 4 - THE OFFICE ROOM", """
     
     \033[0;97mAs the door opens, you're met with a sight you can't understand. 
     A huge mass takes up most of the room space. Massive tentacles surrounding it move idly. It looks asleep. 
     In the far corner, you see your old desk. You know the password for the escape pods might be in the top drawer.\u001b[0m""",
-            "\033[0;97m\nYou're back in the office room. The mass is not moving.\u001b[0m");
+            "\033[0;97m\nYou're back in the office room. The mass is not moving.\u001b[0m", null);
 
     Room room5 = new Room("SECTOR 5 - THE ESCAPE POD", """
     
@@ -34,23 +34,23 @@ public class Map {
     You sit down on the seat, tighten the seatbelt, and feel a sudden bump as the pod detaches itself.
     The door that barely held out the aliens slowly opens, and you see tentacles poke through.
     You made it.\u001b[0m""",
-            "\033[0;97m\nYou're back in the escape pod.\u001b[0m");
+            "\033[0;97m\nYou're back in the escape pod.\u001b[0m", null);
 
     Room room6 = new Room("SECTOR 6 - THE HALLWAY WITH WINDOWS", """
     \033[0;97mHuge windows cover the eastern side of the hallway walls. You look out at the vast space, sprinkled with stars and planets you have never seen before. 
     A sudden knock on the window draws your attention. 
     You see a person in a spacesuit floating in the dark. There's a huge hole in the helmet, with red liquid around the broken glass.\u001b[0m""",
-            "\033[0;97m\nYou're back in the hallway.\u001b[0m");
+            "\033[0;97m\nYou're back in the hallway.\u001b[0m", null);
 
     Room room7 = new Room("SECTOR 7 - THE CHANGING ROOM", """
     \033[0;97mA thick steam rolls out the hallway, as you enter. Every shower is running. It's hard to hear anything but the dripping water. 
     You look down and see red liquid flush down the drain.\u001b[0m""",
-            "\033[0;97m\nYou're back in the steam-filled hallway. And something is moving slowly, intentionally, in the steam.\u001b[0m");
+            "\033[0;97m\nYou're back in the steam-filled hallway. And something is moving slowly, intentionally, in the steam.\u001b[0m", null);
 
     Room room8 = new Room("SECTOR 8 - THE MONITORING ROOM", """
     \033[0;97mThere are strange machines, with surveillance video on seven of the nine screens, temperature and heart rate monitoring.
     By the door facing north, you see a terminal under the "ESCAPE POD" room sign. The screen flickers, but reads: "ENTER PASSWORD"\u001b[0m""",
-            "\033[0;97m\nYou're back in the monitoring room.\u001b[0m");
+            "\033[0;97m\nYou're back in the monitoring room.\u001b[0m", null);
 
     Room room9 = new Room("SECTOR 9 - THE LABORATORY", """
     
@@ -58,28 +58,33 @@ public class Map {
     Stuck on the walls, you see several people you used to remember. 
     The medic, the mechanic, and then you see the face you hoped not to see - your wife's. 
     They are covered in organic matter. Their bellies are hanging out, and look extremely big. Something is moving inside of them.\u001b[0m""",
-            "\033[0;97m\nYou're back in the laboratory.\u001b[0m");
+            "\033[0;97m\nYou're back in the laboratory.\u001b[0m", null);
 
     Weapon[] weapons = {
-            new MeleeWeapon("wrench", "old, rusty wrench", 20),
-            new RangedWeapon("laser rifle", "stasis laser rifle", 30, 5),
-            new MeleeWeapon("tentacle", "sharp tentacle", 20)
+            new MeleeWeapon("wrench", "old, rusty [wrench]", 20),
+            new RangedWeapon("laser rifle", "stasis [laser rifle]", 30, 5),
+            new MeleeWeapon("tentacle", "sharp tentacle", 20),
+            new MeleeWeapon("beak", "sharp beak", 5)
     };
 
     Enemy[] enemies = {
-            new Enemy("alien", "asdf", "description", 50, weapons[2], room6),
-            new Enemy("alienTwo", "asdfTwo", "descriptionTwo", 50, weapons[2], room6)
+            new Enemy("flying squid", "asdf", "description", 50, weapons[2], room7),
+            new Enemy("flying squid", "asdfTwo", "descriptionTwo", 50, weapons[2], room7),
+
+            // ENEMY CRITTERS
+            new Enemy("tiny squid 1", "long desc tiny squid", "\033[0;97mThree, small squids claw their way out of the belly. They scurry around the floor, leaving red trails behind them.\nThen they pause and stare with no eyes. They've noticed you.\u001b[0m", 20, weapons[3], room6),
+            new Enemy("tiny squid 2", "long desc tiny squid", "description", 20, weapons[3], room6),
+            new Enemy("tiny squid 3", "long desc tiny squid", "description", 20, weapons[3], room6),
     };
 
      public void buildItems(){
-         room1.addItem("key card", "bloodied key card", "a");
-
-         room2.addItem("flash light", "robust flash light", "a");
-
+         room1.addItem("key card", "bloodied [key card]", "a");
          room1.addItem(weapons[0]);
          room2.addItem(weapons[1]);
 
-         room3.addItem("burger", "a fresh burger", 10);
+         room2.addItem("flash light", "robust [flash light]", "a");
+
+         room3.addItem("burger", "a fresh [burger]", 10);
          room3.addItem("battery", "smart space rocket laser battery", -99);
          room3.addItem("cola", "fresh, ice-cold bottle of cola", "a");
 
@@ -124,8 +129,13 @@ public class Map {
     }
 
     public void buildEnemies() {
-        room6.addEnemy(enemies[0]);
-        room6.addEnemy(enemies[1]);
+        room7.addEnemy(enemies[0]);
+        room7.addEnemy(enemies[1]);
+
+        // Squid critters
+        room6.addEnemy(enemies[2]);
+        room6.addEnemy(enemies[3]);
+        room6.addEnemy(enemies[4]);
     }
 
     public void buildDialogue() {

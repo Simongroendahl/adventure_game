@@ -95,7 +95,7 @@ public class Adventure {
     }
 
     public void look() {
-        userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
+        userInterface.printHighlightedMessage(player.getCurrentRoom().getName());
         userInterface.printMessage(player.look());
         userInterface.printMessage("");
         userInterface.printItemList(player.getCurrentRoom().getItems());
@@ -158,22 +158,41 @@ public class Adventure {
         gameRunning = false;
     }
 
+    private void playRoomAudio() {
+        Sound roomAudio = player.getCurrentRoom().getRoomAudio();
+
+        if(roomAudio != null) {
+            audio.play(roomAudio);
+        }
+    }
+
     private void tryToMove(String userInput) {
         String direction = userInterface.parseDirection(userInput);
 
         if (direction == null) {
             userInterface.printMessage("I don't understand that.");
+            audio.play(Sound.ERROR);
             return;
         }
 
         MoveResult result = player.move(direction);
 
         switch (result) {
-            case NO_EXIT -> userInterface.printMessage("You can't go that way.");
-            case LOCKED -> userInterface.printMessage("The door is locked. You need a key.");
+            case NO_EXIT -> {
+                audio.play(Sound.ERROR);
+                userInterface.printMessage("You can't go that way.");
+            }
+            case LOCKED -> {
+                audio.play(Sound.ERROR);
+                userInterface.printMessage("The door is locked. You need a key.");
+            }
             case NEEDS_PASSWORD -> askForPassword(direction);
             case MOVED -> {
+                // TODO - tester clear screen
+                userInterface.clearScreen();
+                playRoomAudio();
                 audio.play(Sound.ENTER_ROOM_2);
+
                 printRoomDescription();
                 player.getCurrentRoom().setBeenInRoomBefore();
             }
@@ -237,15 +256,15 @@ public class Adventure {
                 case "look" -> look();
                 case "take" -> takeItems(argument);
                 case "drop" -> dropItem(argument);
-                case "eat" -> eat(argument);
+                case "eat", "drink" -> eat(argument);
                 case "equip" -> equip(argument);
-                case "attack" -> startCombat();
+                case "attack", "shoot", "hit" -> startCombat();
                 case "health" -> checkHealth();
                 case "inventory" -> userInterface.printInventoryList(player.getInventory(), player.getEquipped());
                 case "terminal" -> useTerminal();
                 case "access", "use" -> {
                     if (argument.equals("terminal")) useTerminal();
-                    else userInterface.printMessage(command + "what?");
+                    else userInterface.printMessage(command + " what?");
                 }
                 case "exit" -> {
                     audio.close();

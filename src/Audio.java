@@ -8,16 +8,19 @@ public class Audio {
 
     private Clip enterRoomOne = load("Enter_Room_1.wav");
     private Clip enterRoomTwo = load("Enter_Room_2.wav");
+    private Clip alarmSiren = load("Alarm_Siren.wav");
+
     private Clip itemPickup = load("Item_Pickup.wav");
     private Clip terminalInput = load("Terminal_Input.wav");
     private Clip enterTerminal = load("Enter_Terminal.wav");
+    private Clip error = load("Error.wav");
 
     // Våben lydeffekter
     private Clip meleeHitOne = load("Melee_Hit_1.wav");
     private Clip laserShotOne = load("Laser_Shot_1.wav");
     private Clip laserShotTwo = load("Laser_Shot_2.wav");
 
-    protected Clip mainMenu = load("Main_Menu.wav");
+    protected Clip mainMenu = load("Main_Menu_BG.wav");
     protected Clip ambientBG = load("Ambient_BG.wav");
     private static float AMBIENT_VOLUME = -12.0f;
 
@@ -34,6 +37,8 @@ public class Audio {
             case ENTER_ROOM_1 -> enterRoomOne;
             case ENTER_ROOM_2 -> enterRoomTwo;
             case ITEM_PICKUP -> itemPickup;
+            case ERROR -> error;
+            case ALARM_SIREN -> alarmSiren;
             case TERMINAL_INPUT -> terminalInput;
             case ENTER_TERMINAL -> enterTerminal;
             case MELEE_HIT_1 -> meleeHitOne;
@@ -60,10 +65,23 @@ public class Audio {
         ambientBG.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
+    public void startAmbientMainMenu() {
+        if(!enabled || mainMenu == null || mainMenu.isRunning()) {
+            return;
+        }
+        mainMenu.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+
     // Stopper baggrundsmusikken
     public void stopAmbient() {
         if(ambientBG != null) {
             ambientBG.stop();
+        }
+    }
+
+    public void stopAmbientMainMenu() {
+        if(mainMenu != null) {
+            mainMenu.stop();
         }
     }
 

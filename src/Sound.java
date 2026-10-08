@@ -1,7 +1,9 @@
 public enum Sound {
     ENTER_ROOM_1,
     ENTER_ROOM_2,
+    ALARM_SIREN,
     ITEM_PICKUP,
+    ERROR,
     TERMINAL_INPUT,
     ENTER_TERMINAL,
     MELEE_HIT_1,

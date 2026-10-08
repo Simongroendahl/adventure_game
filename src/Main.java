@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         Audio audio = new Audio();
-        UserInterface userInterface = new UserInterface();
+        UserInterface userInterface = new UserInterface(audio);
         Adventure adventure = new Adventure(userInterface, audio);
         userInterface.runProgram(adventure);
     }
