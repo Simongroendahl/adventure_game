@@ -8,9 +8,10 @@ public class DialogueOption {
         this.nextNode = nextNode;
     }
 
+    // TODO - tester hvid dialogue node font
     public String getText()
     {
-        return text;
+        return "\033[0;97m" + text + "\u001b[0m";
     }
 
     public DialogueNode getNextNode()

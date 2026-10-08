@@ -17,16 +17,14 @@ public abstract class Weapon extends Item {
     // Equip item
     public abstract void use();
 
+    public abstract Sound getAttackSound();
+
     public String getAttackVerb() {
         return "";
     }
 
     public String getUsesLeft() {
         return "";
-    }
-
-    public Sound getAudioType() {
-        return null;
     }
 
     public String getAttackMessage(String targetName, RollResult result) {

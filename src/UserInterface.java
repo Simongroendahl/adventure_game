@@ -16,18 +16,18 @@ public class UserInterface {
         printMessage(startDescription);
     }
 
-    public UserInterface(){
-      scanner = new Scanner(System.in);
+    public UserInterface() {
+        scanner = new Scanner(System.in);
     }
 
-    public String getInput(){
+    public String getInput() {
         printMessageInline("> ");
         return scanner.nextLine();
     }
 
-    public void closeScanner(){
+    public void closeScanner() {
         scanner.close();
-     }
+    }
 
     public void printMessage(String message) {
         System.out.println(message);
@@ -37,18 +37,16 @@ public class UserInterface {
         System.out.print(message);
     }
 
-    public void printHighlightedMessage(String text){
+    public void printHighlightedMessage(String text) {
         System.out.println(highlightedText + " " + text + " " + resetColor);
     }
 
-    public void printBoldTextOption(String textOption, String text)
-    {
+    public void printBoldTextOption(String textOption, String text) {
         System.out.println(boldText + textOption + boldTextReset + text);
     }
 
-    public void printEnemyList(ArrayList<Enemy> enemies)
-    {
-        if(enemies.isEmpty()) {
+    public void printEnemyList(ArrayList<Enemy> enemies) {
+        if (enemies.isEmpty()) {
             return;
         }
 
@@ -63,7 +61,7 @@ public class UserInterface {
     }
 
     public void printItemList(ArrayList<Item> items) {
-        if(items.isEmpty()) {
+        if (items.isEmpty()) {
             return;
         }
         printMessageInline(boldText + "Here you see: " + boldTextReset);
@@ -75,7 +73,7 @@ public class UserInterface {
     }
 
     public void printInventoryList(ArrayList<Item> inventory, Weapon equipped) {
-        if(inventory.isEmpty()) {
+        if (inventory.isEmpty()) {
             printMessage("You have no items.");
             return;
         }
@@ -86,25 +84,22 @@ public class UserInterface {
         }
         printMessage("");
         printMessageInline(boldText + "EQUIPPED: " + boldTextReset);
-        if(equipped == null)
-        {
+        if (equipped == null) {
             printMessage("nothing.");
-        }
-        else {
+        } else {
             printMessage(equipped.getDefiniteName());
         }
         printMessage("");
     }
 
-    public void printDialogueNode(DialogueNode node)
-    {
+    public void printDialogueNode(DialogueNode node) {
         printMessageInline(highlightedText + " " + node.getSpeaker() + " " + resetColor + " ");
         printMessage(node.getText());
 
         ArrayList<DialogueOption> options = node.getOptions();
         printMessage("");
         for (int i = 0; i < options.size(); i++) {
-            printMessage("> " + (i + 1) + ". " + options.get(i).getText());
+            printMessage("\033[0;97m> " + (i + 1) + ".\u001b[0m " + options.get(i).getText());
         }
     }
 
@@ -124,17 +119,15 @@ public class UserInterface {
         }
     }
 
-    public int getChoice(int max)
-    {
-        while(true) {
-            if(scanner.hasNextInt()) {
+    public int getChoice(int max) {
+        while (true) {
+            if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
 
                 if (choice >= 1 && choice <= max) {
                     return choice;
-                }
-                else {
+                } else {
                     scanner.nextLine();
                 }
 
@@ -146,55 +139,52 @@ public class UserInterface {
     public String parseDirection(String input) {
         String normalized = input.trim().toLowerCase();
         return switch (normalized) {
-            case "north", "go north", "n" -> "north";
-            case "south", "go south", "s" -> "south";
-            case "east", "go east", "e"  -> "east";
-            case "west", "go west", "w"  -> "west";
+            case "north", "go north", "go n", "n" -> "north";
+            case "south", "go south", "go s", "s" -> "south";
+            case "east", "go east", "go e", "e" -> "east";
+            case "west", "go west", "go w", "w" -> "west";
             default -> null;
         };
     }
 
-     public void showHelp() {
-         printMessage("");
-         printHighlightedMessage("AVAILABLE COMMANDS:");
-         printBoldTextOption("> Directions - ", "You can go north, east, west, or south. Type: Go north, north, or n.");
-         printBoldTextOption("> Look - ", "Type: look - in order to get a description of the current room again.");
-         printBoldTextOption("> Take - ", "Type: take [item name] or take all - to loot items.");
-         printBoldTextOption("> Inventory - ", "Type: inventory - checks your current items and equipped weapon.");
-         printBoldTextOption("> Equip - ", "Type: equip [item name] - to equip a weapon.");
-         printBoldTextOption("> Health - ", "Type: health - checks your current health status");
-         printBoldTextOption("> Attack - ", "Type: attack - attack the enemy");
-         printBoldTextOption("> Access Terminal - ", "Type: terminal - to access any room's terminal.");
-         printBoldTextOption("> Exit - ", "Type Exit in order to close the program");
-     }
+    public void showHelp() {
+        printMessage("");
+        printHighlightedMessage("AVAILABLE COMMANDS:");
+        printBoldTextOption("> Directions - ", "You can go north, east, west, or south. Type: Go north, north, or n.");
+        printBoldTextOption("> Look - ", "Type: look - in order to get a description of the current room again.");
+        printBoldTextOption("> Take - ", "Type: take [item name] or take all - to loot items.");
+        printBoldTextOption("> Inventory - ", "Type: inventory - checks your current items and equipped weapon.");
+        printBoldTextOption("> Equip - ", "Type: equip [item name] - to equip a weapon.");
+        printBoldTextOption("> Health - ", "Type: health - checks your current health status");
+        printBoldTextOption("> Attack - ", "Type: attack - attack the enemy");
+        printBoldTextOption("> Access Terminal - ", "Type: terminal - to access any room's terminal.");
+        printBoldTextOption("> Exit - ", "Type Exit in order to close the program");
+    }
 
-     boolean runProgram = true;
+    boolean runProgram = true;
 
-     public void runProgram(Adventure adventure) {
-         printHighlightedMessage("OUR SPACE GAME");
-         getIntroText();
-         printMessage(boldText + "Choose:" + boldTextReset);
-         printMessage("> Start Game");
-         printMessage("> Help");
-         printMessage("> Exit");
+    public void runProgram(Adventure adventure) {
+        printHighlightedMessage("OUR SPACE GAME");
+        getIntroText();
+        printMessage(boldText + "Choose:" + boldTextReset);
+        printMessage("> Start Game");
+        printMessage("> Help");
+        printMessage("> Exit");
 
-         while(runProgram) {
-             String userInput = getInput();
+        while (runProgram) {
+            String userInput = getInput();
 
-             if (userInput.trim().equalsIgnoreCase("Start game") || (userInput.trim().equalsIgnoreCase("Start"))) {
-                 adventure.startGame();
-                 runProgram = false;
-             }
-             else if (userInput.trim().equalsIgnoreCase("Help")) {
+            if (userInput.trim().equalsIgnoreCase("Start game") || (userInput.trim().equalsIgnoreCase("Start"))) {
+                adventure.startGame();
+                runProgram = false;
+            } else if (userInput.trim().equalsIgnoreCase("Help")) {
                 showHelp();
-             }
-             else if (userInput.trim().equalsIgnoreCase("Exit")){
-                 printMessage("Really? Boring!");
-                 runProgram = false;
-             }
-             else {
-                 printMessage("Wrong input. Try again.");
-             }
-         }
-     }
+            } else if (userInput.trim().equalsIgnoreCase("Exit")) {
+                printMessage("Really? Boring!");
+                runProgram = false;
+            } else {
+                printMessage("Wrong input. Try again.");
+            }
+        }
+    }
 }

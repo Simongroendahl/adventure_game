@@ -42,7 +42,8 @@ public class RangedWeapon extends Weapon{
         };
     }
 
-    public Sound getAudioType(Sound sound) {
+    @Override
+    public Sound getAttackSound() {
         return Sound.LASER_SHOT_1;
     }
 }

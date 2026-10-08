@@ -9,32 +9,34 @@ public class Combat {
     private Player player;
     private Room room;
     private UserInterface userInterface;
+    private Audio audio;
     private Random random;
     private boolean fled;
 
-    public Combat(Player player, Room room, UserInterface userInterface, Random random) {
+    public Combat(Player player, Room room, UserInterface userInterface, Audio audio, Random random) {
         this.player = player;
         this.room = room;
         this.userInterface = userInterface;
+        this.audio = audio;
         this.random = random;
     }
 
-    public CombatResult run(){
-        userInterface.printMessage("*** ENTERING COMBAT ***");
+    public CombatResult run() {
+        userInterface.printHighlightedMessage("*** ENTERING COMBAT ***");
 
-        while(true) {
+        while (true) {
             playerTurn();
 
-            if(fled) {
+            if (fled) {
                 return CombatResult.FLED;
             }
-            if(room.getEnemies().isEmpty()){
+            if (room.getEnemies().isEmpty()) {
                 return CombatResult.VICTORY;
             }
 
             enemyTurn();
 
-            if(player.getHealth() <= 0) {
+            if (player.getHealth() <= 0) {
                 return CombatResult.DEFEAT;
             }
         }
@@ -42,21 +44,19 @@ public class Combat {
 
     private RollResult combatRoll() {
         int diceRoll = random.nextInt(20) + 1;
-        if(diceRoll == 20) {
+        if (diceRoll == 20) {
             return RollResult.CRITICAL_HIT;
         }
 
-        if(diceRoll > 1) {
+        if (diceRoll > 1) {
             return RollResult.HIT;
-        }
-
-        else {
+        } else {
             return RollResult.CRITICAL_FAIL;
         }
     }
 
     private int calculateDamage(RollResult result, int baseDamage) {
-        return switch(result) {
+        return switch (result) {
             case CRITICAL_HIT -> baseDamage * 2;
             case HIT -> baseDamage;
             case CRITICAL_FAIL -> 0;
@@ -71,7 +71,7 @@ public class Combat {
 
             userInterface.printMessage("\nWhat do you do?");
             for (int i = 0; i < options.size(); i++) {
-                userInterface.printMessage((i + 1) + ". " + options.get(i).getLabel());
+                userInterface.printMessage("\033[0;97m" + (i + 1) + ". " + "[" + options.get(i).getLabel() + "]\u001b[0m");
             }
 
             int choice = userInterface.getChoice(options.size());
@@ -109,16 +109,16 @@ public class Combat {
             }
         }
 
-        if(!player.getInventory().isEmpty()) {
+        if (!player.getInventory().isEmpty()) {
             options.add(new CombatOption("Eat something (free action)", CombatAction.EAT));
             options.add(new CombatOption("Switch weapon", CombatAction.SWITCH_WEAPON));
         }
 
-        if(!fleeDirections().isEmpty()) {
+        if (!fleeDirections().isEmpty()) {
             options.add(new CombatOption("Flee", CombatAction.FLEE));
         }
 
-        if(options.isEmpty()) {
+        if (options.isEmpty()) {
             options.add(new CombatOption("Hold your ground", CombatAction.HOLD));
         }
 
@@ -134,14 +134,14 @@ public class Combat {
             int before = 0;
 
             for (int j = 0; j < enemies.size(); j++) {
-                if(enemies.get(j).getShortName().equals(name)) {
+                if (enemies.get(j).getShortName().equals(name)) {
                     total++;
                     if (j < i) before++;
                 }
-                
+
             }
 
-            if(total > 1 && before < ENEMYNUMBER.length) {
+            if (total > 1 && before < ENEMYNUMBER.length) {
                 labels.add(ENEMYNUMBER[before] + " " + name);
             } else {
                 labels.add(name);
@@ -155,6 +155,7 @@ public class Combat {
         RollResult result = combatRoll();
         int damage = calculateDamage(result, weapon.getDamage());
 
+        audio.play(weapon.getAttackSound());
         userInterface.printMessage(weapon.getAttackMessage(label, result));
 
         if (damage > 0 && target.hit(damage)) {
@@ -173,7 +174,7 @@ public class Combat {
         EatResult result = player.eat(name);
         userInterface.printEatResult(result, name);
 
-        if(result == EatResult.EATEN) {
+        if (result == EatResult.EATEN) {
             userInterface.printMessage("Health: " + player.getHealth() + ".");
         }
         return false;
@@ -181,7 +182,7 @@ public class Combat {
 
     private boolean switchWeapon() {
         String name = askForItemName("Switch to which weapon?");
-        if(name == null) {
+        if (name == null) {
             return false;
         }
 
@@ -197,7 +198,7 @@ public class Combat {
 
         String name = userInterface.getInput().trim().toLowerCase();
 
-        if(name.isEmpty() || name.equals("cancel")) {
+        if (name.isEmpty() || name.equals("cancel")) {
             userInterface.printMessage("You change your mind");
             return null;
         }
@@ -209,7 +210,7 @@ public class Combat {
 
         for (String direction : DIRECTIONS) {
             Room target = player.getRoomInDirection(direction);
-            if(target != null && !target.needsPassword() && !target.isLockedFor(player)) {
+            if (target != null && !target.needsPassword() && !target.isLockedFor(player)) {
                 result.add(direction);
             }
         }
@@ -248,7 +249,7 @@ public class Combat {
         for (int i = 0; i < enemies.size(); i++) {
             Weapon weapon = enemies.get(i).getWeapon();
 
-            if(weapon == null) {
+            if (weapon == null) {
                 continue;
             }
 
@@ -256,14 +257,14 @@ public class Combat {
             RollResult result = combatRoll();
             int damage = calculateDamage(result, weapon.getDamage());
 
-            if(damage >= player.getHealth()) {
+            if (damage >= player.getHealth()) {
                 result = RollResult.CRITICAL_FAIL;
                 damage = 0;
             }
 
             userInterface.printMessage(weapon.getEnemyAttackMessage(name, result));
 
-            if(damage > 0) {
+            if (damage > 0) {
                 player.hit(damage);
                 userInterface.printMessage("You take " + damage + " damage. Health: " + player.getHealth() + ".");
             }

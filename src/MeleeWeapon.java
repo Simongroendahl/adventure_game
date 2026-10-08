@@ -15,8 +15,14 @@ public class MeleeWeapon extends Weapon {
         /*System.out.println("You " + getAttackVerb() + " the " + shortName);*/
     }
 
-    //
+    @Override
     public String getAttackVerb() {
         return "swing";
+    }
+
+    // TODO INDSÆT MELEE SOUND
+    @Override
+    public Sound getAttackSound() {
+        return null;
     }
 }

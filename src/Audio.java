@@ -10,7 +10,6 @@ public class Audio {
     private Clip enterRoomTwo = load("Enter_Room_2.wav");
     private Clip terminalInput = load("Terminal_Input.wav");
     private Clip enterTerminal = load("Enter_Terminal.wav");
-    private Clip exitTerminal = load("Exit_Terminal.wav");
     private Clip laserShotOne = load("Laser_Shot_1.wav");
     private Clip laserShotTwo = load("Laser_Shot_2.wav");
 
@@ -31,7 +30,6 @@ public class Audio {
             case ENTER_ROOM_2 -> enterRoomTwo;
             case TERMINAL_INPUT -> terminalInput;
             case ENTER_TERMINAL -> enterTerminal;
-            case EXIT_TERMINAL -> exitTerminal;
             case LASER_SHOT_1 -> laserShotOne;
             case LASER_SHOT_2 -> laserShotTwo;
             case AMBIENT_BG -> ambientBG;

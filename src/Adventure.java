@@ -35,6 +35,7 @@ public class Adventure {
             audio.play(Sound.TERMINAL_INPUT);
         }
 
+        audio.play(Sound.ENTER_TERMINAL);
         userInterface.printMessage("You step away from the terminal.");
     }
 
@@ -53,6 +54,7 @@ public class Adventure {
             userInterface.printMessage("There is no terminal here.");
         } else {
             audio.play(Sound.ENTER_TERMINAL);
+            audio.play(Sound.TERMINAL_INPUT);
             runConversation(dialogue);
         }
     }
@@ -89,8 +91,7 @@ public class Adventure {
             if (item != null) {
                 map.openRoomTwo();
             }*/
-        }
-        else {
+        } else {
             userInterface.printMessage("There is no " + argument + " here.");
         }
     }
@@ -98,6 +99,7 @@ public class Adventure {
     public void look() {
         userInterface.printHighlightedMessage("You are in " + player.getCurrentRoom().getName());
         userInterface.printMessage(player.look());
+        userInterface.printMessage("");
         userInterface.printItemList(player.getCurrentRoom().getItems());
         userInterface.printEnemyList(player.getCurrentRoom().getEnemies());
     }
@@ -128,34 +130,15 @@ public class Adventure {
         }
     }
 
-    // GAMMEL ATTACK METODE
-    /*private void attack(String argument) {
-        Weapon weapon = player.getEquipped();
-
-        if (weapon == null) {
-            userInterface.printMessage("You have no weapon equipped. (Equip a weapon to attack)");
-            return;
-        }
-
-        if (!weapon.canUse()) {
-            userInterface.printMessage("You're out of ammo");
-            return;
-        }
-
-        Enemy target = player.getCurrentRoom().findEnemy(argument);
-        player.attack(argument);
-        userInterface.printMessage(weapon.getAttackMessage(target));
-    }*/
-
     public void startCombat() {
         Room room = player.getCurrentRoom();
 
-        if(room.getEnemies().isEmpty()) {
+        if (room.getEnemies().isEmpty()) {
             userInterface.printMessage("There is nothing to fight here.");
             return;
         }
 
-        CombatResult result = new Combat(player, room, userInterface, random).run();
+        CombatResult result = new Combat(player, room, userInterface, audio, random).run();
 
         switch (result) {
             case VICTORY -> userInterface.printMessage("The room falls silent");
@@ -180,14 +163,14 @@ public class Adventure {
     private void tryToMove(String userInput) {
         String direction = userInterface.parseDirection(userInput);
 
-        if(direction == null) {
+        if (direction == null) {
             userInterface.printMessage("I don't understand that.");
             return;
         }
 
         MoveResult result = player.move(direction);
 
-        switch(result) {
+        switch (result) {
             case NO_EXIT -> userInterface.printMessage("You can't go that way.");
             case LOCKED -> userInterface.printMessage("The door is locked. You need a key.");
             case NEEDS_PASSWORD -> askForPassword(direction);
@@ -199,35 +182,35 @@ public class Adventure {
         }
     }
 
-    private void askForPassword(String direction){
+    private void askForPassword(String direction) {
         Room target = player.getRoomInDirection(direction);
 
-        if(target.getAttemptsLeft() <= 0) {
+        if (target.getAttemptsLeft() <= 0) {
             userInterface.printMessage("The keypad is dead. Too many wrong attempts.");
             return;
         }
 
-        if(target.getAttemptsLeft() < Room.MAX_PASSWORD_ATTEMPTS){
+        if (target.getAttemptsLeft() < Room.MAX_PASSWORD_ATTEMPTS) {
             userInterface.printMessage("The keypad blinks: " + target.getAttemptsLeft() + " of " + Room.MAX_PASSWORD_ATTEMPTS + " attempts left.");
 
         }
 
         userInterface.printMessage("A keypad blocks the door. Enter password: ");
-        while(target.getAttemptsLeft() > 0) {
+        while (target.getAttemptsLeft() > 0) {
             String input = userInterface.getInput();
 
-            if(input.equalsIgnoreCase("cancel")) {
+            if (input.equalsIgnoreCase("cancel")) {
                 userInterface.printMessage("You step away from the keypad.");
                 return;
             }
 
-            if(target.tryPassword(input)) {
+            if (target.tryPassword(input)) {
                 userInterface.printMessage("Access granted.");
                 tryToMove(direction);
                 return;
             }
 
-            if(target.getAttemptsLeft() > 0) {
+            if (target.getAttemptsLeft() > 0) {
                 userInterface.printMessage("Wrong password. " + target.getAttemptsLeft() + " attempt(s) left.");
                 userInterface.printMessage("Type: cancel - to step away");
             }
@@ -236,44 +219,44 @@ public class Adventure {
         userInterface.printMessage("Wrong password. The keypad shuts down.");
     }
 
-        public void startGame() {
-            map.buildWorld();
-            player = new Player(map.getStartRoom());
-            gameRunning = true;
-            audio.startAmbient();
-            audio.play(Sound.ENTER_ROOM_2);
-            printRoomDescription();
-            player.getCurrentRoom().setBeenInRoomBefore();
+    public void startGame() {
+        map.buildWorld();
+        player = new Player(map.getStartRoom());
+        gameRunning = true;
+        audio.startAmbient();
+        audio.play(Sound.ENTER_ROOM_2);
+        printRoomDescription();
+        player.getCurrentRoom().setBeenInRoomBefore();
 
-            while(gameRunning) {
-                String userInput = userInterface.getInput().trim().toLowerCase();
-                String[] parts = userInput.split(" ", 2);
-                String command = parts[0].toLowerCase();
-                String argument = parts.length > 1 ? parts[1].trim() : "";
+        while (gameRunning) {
+            String userInput = userInterface.getInput().trim().toLowerCase();
+            String[] parts = userInput.split(" ", 2);
+            String command = parts[0].toLowerCase();
+            String argument = parts.length > 1 ? parts[1].trim() : "";
 
-                switch(command) {
-                    case "help" -> userInterface.showHelp();
-                    case "look" -> look();
-                    case "take" -> takeItems(argument);
-                    case "drop" -> dropItem(argument);
-                    case "eat" -> eat(argument);
-                    case "equip" -> equip(argument);
-                    case "attack" -> startCombat();
-                    case "health" -> checkHealth();
-                    case "inventory" -> userInterface.printInventoryList(player.getInventory(), player.getEquipped());
-                    case "terminal" -> useTerminal();
-                    case "access", "use" -> {
-                        if(argument.equals("terminal")) useTerminal();
-                        else userInterface.printMessage(command + "what?");
-                    }
-                    case "exit" -> {
-                        audio.close();
-                        exitGame();
-                    }
-                    default -> tryToMove(userInput);
+            switch (command) {
+                case "help" -> userInterface.showHelp();
+                case "look" -> look();
+                case "take" -> takeItems(argument);
+                case "drop" -> dropItem(argument);
+                case "eat" -> eat(argument);
+                case "equip" -> equip(argument);
+                case "attack" -> startCombat();
+                case "health" -> checkHealth();
+                case "inventory" -> userInterface.printInventoryList(player.getInventory(), player.getEquipped());
+                case "terminal" -> useTerminal();
+                case "access", "use" -> {
+                    if (argument.equals("terminal")) useTerminal();
+                    else userInterface.printMessage(command + "what?");
                 }
+                case "exit" -> {
+                    audio.close();
+                    exitGame();
                 }
+                default -> tryToMove(userInput);
             }
         }
+    }
+}
 
 

@@ -7,22 +7,22 @@ public class Player {
     private int health;
     private Weapon equipped;
 
-    public Player (Room startRoom) {
+    public Player(Room startRoom) {
         this.currentRoom = startRoom;
         this.inventory = new ArrayList<>();
         this.health = 100;
     }
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         inventory.add(item);
     }
 
-    public void removeItem(Item item){
+    public void removeItem(Item item) {
         inventory.remove(item);
     }
 
     //
-    public boolean takeItem(String shortName){
+    public boolean takeItem(String shortName) {
         // Objektreferencen gemmes i item først (så den ikke slettes)
         Item item = currentRoom.findItem(shortName);
         if (item == null) {
@@ -43,15 +43,13 @@ public class Player {
         return taken;
     }
 
-    public Boolean dropItem(String shortName){
+    public Boolean dropItem(String shortName) {
         Item item = findItem(shortName);
-        if (item == null)
-        {
+        if (item == null) {
             return false;
         }
 
-        if (item == equipped)
-        {
+        if (item == equipped) {
             equipped = null;
         }
 
@@ -60,12 +58,11 @@ public class Player {
         return true;
     }
 
-    public boolean hasItem(String i)
-    {
+    public boolean hasItem(String i) {
         return inventory.contains(i);
     }
 
-    public Item findItem(String shortName){
+    public Item findItem(String shortName) {
         for (Item item : inventory) {
             if (item.getShortName().equalsIgnoreCase(shortName)) {
                 return item;
@@ -83,13 +80,11 @@ public class Player {
         return currentRoom;
     }
 
-    public int getHealth()
-    {
+    public int getHealth() {
         return health;
     }
 
-    public EatResult eat(String shortName)
-    {
+    public EatResult eat(String shortName) {
         Item item = findItem(shortName);                // først i inventory
         if (item == null) {
             item = currentRoom.findItem(shortName);     // så i rummet
@@ -109,49 +104,36 @@ public class Player {
         return EatResult.EATEN;
     }
 
-    public Weapon getEquipped()
-    {
+    public Weapon getEquipped() {
         return equipped;
     }
 
-    public WeaponResult equip(String shortName)
-    {
+    public WeaponResult equip(String shortName) {
         Item item = findItem(shortName); // først i inventory
         {
             if (item == null) {
-            return WeaponResult.NOT_FOUND;
-        }
+                return WeaponResult.NOT_FOUND;
+            }
 
-        if (!(item instanceof Weapon))
-        {
-            return WeaponResult.NOT_WEAPON;
-        }
+            if (!(item instanceof Weapon)) {
+                return WeaponResult.NOT_WEAPON;
+            }
 
-        equipped = (Weapon) item;
-        return WeaponResult.IS_WEAPON;
+            equipped = (Weapon) item;
+            return WeaponResult.IS_WEAPON;
         }
     }
 
-    /*public void attack(String shortName) {
-        if (equipped != null && equipped.canUse()) {
-            equipped.use();
-            int playerDamage = equipped.getDamage();
-            Enemy enemy = currentRoom.getEnemies().get(0);
-            enemy.hit(playerDamage);
-        }
-    }*/
-
-    public void hit(int damage)
-    {
+    public void hit(int damage) {
         health -= damage;
     }
 
-    public Room getRoomInDirection(String direction){
+    public Room getRoomInDirection(String direction) {
         return switch (direction.trim().toLowerCase()) {
             case "north", "go north", "n" -> currentRoom.getNorth();
             case "south", "go south", "s" -> currentRoom.getSouth();
-            case "east", "go east", "e"  -> currentRoom.getEast();
-            case "west", "go west", "w"  -> currentRoom.getWest();
+            case "east", "go east", "e" -> currentRoom.getEast();
+            case "west", "go west", "w" -> currentRoom.getWest();
             default -> null;
         };
     }
@@ -159,15 +141,15 @@ public class Player {
     public MoveResult move(String direction) {
         Room nextRoom = getRoomInDirection(direction);
 
-        if(nextRoom == null) {
+        if (nextRoom == null) {
             return MoveResult.NO_EXIT;
         }
 
-        if(nextRoom.needsPassword()){
+        if (nextRoom.needsPassword()) {
             return MoveResult.NEEDS_PASSWORD;
         }
 
-        if(nextRoom.isLockedFor(this)){
+        if (nextRoom.isLockedFor(this)) {
             return MoveResult.LOCKED;
         }
 
