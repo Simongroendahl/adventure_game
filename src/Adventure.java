@@ -77,6 +77,7 @@ public class Adventure {
         if (argument.isEmpty()) {
             userInterface.printMessage("Take what?");
         } else if (argument.equalsIgnoreCase("all")) {
+            audio.play(Sound.ITEM_PICKUP);
             ArrayList<Item> taken = player.takeAllItems();
             if (taken.isEmpty()) {
                 userInterface.printMessage("There is nothing to take here.");
@@ -86,11 +87,8 @@ public class Adventure {
                 }
             }
         } else if (player.takeItem(argument)) {
+            audio.play(Sound.ITEM_PICKUP);
             userInterface.printMessage("You took the " + argument + ".");
-            /*Item item = player.findItem("key card");
-            if (item != null) {
-                map.openRoomTwo();
-            }*/
         } else {
             userInterface.printMessage("There is no " + argument + " here.");
         }

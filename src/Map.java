@@ -67,8 +67,8 @@ public class Map {
     };
 
     Enemy[] enemies = {
-            new Enemy("alien", "asdf", "description", 50, weapons[2], room1),
-            new Enemy("alienTwo", "asdfTwo", "descriptionTwo", 50, weapons[2], room1)
+            new Enemy("alien", "asdf", "description", 50, weapons[2], room6),
+            new Enemy("alienTwo", "asdfTwo", "descriptionTwo", 50, weapons[2], room6)
     };
 
      public void buildItems(){
@@ -140,7 +140,7 @@ public class Map {
         \033[0;97mClass:                          Deep Space Research
         \033[0;97mMission:                        [REDACTED]
         \033[0;97mLocation:                       [REDACTED]
-        \033[0;97mMission day:                    2723
+        \033[0;97mMission day:                    40.880
         
         \033[0;97mHull integrity:                 97%
         \033[0;97mPower:                          83%
@@ -171,7 +171,7 @@ public class Map {
         
         
         \033[1;97mLAB RESULTS: ICE CORE SAMPLE 04
-        \033[0;97mLOG 0047 || DATE: 2187-11-03 || AUTHOR: Dr. Lena Chen - Astrobiology
+        \033[0;97mLOG 0047 || DATE: 3112-11-03 || AUTHOR: Dr. Lena Chen - Astrobiology
         \033[0;97m---------------------------------------------------------------------
                 
         \033[0;97mSAMPLE:        IC-04
@@ -189,7 +189,7 @@ public class Map {
         
         
         \033[1;97mLAB RESULTS: ORGANIC SAMPLE 04
-        \033[0;97mLOG 0052 || DATE: 2187-11-06 || AUTHOR: Dr. Lena Chen - Astrobiology
+        \033[0;97mLOG 0052 || DATE: 3112-11-06 || AUTHOR: Dr. Lena Chen - Astrobiology
         \033[0;97m----------------------------------------------------
                 
         \033[0;97mSAMPLE:        OS-02

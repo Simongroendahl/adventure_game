@@ -119,7 +119,8 @@ public class UserInterface {
         }
     }
 
-    public int getChoice(int max) {
+    // TODO: Jeg retter error handling i combat sekvens ved String input
+    /*public int getChoice(int max) {
         while (true) {
             if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();
@@ -134,6 +135,31 @@ public class UserInterface {
                 printMessage("Choose a number between 1 and " + max + ".");
             }
         }
+    }*/
+
+    public int getChoice(int max) {
+        while (true) {
+            String input = getInput();
+            if(isNumber(input)) {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= max) {
+                    return choice;
+                }
+            }
+            printMessage("Choose a number between 1 and " + max + ".");
+        }
+    }
+
+    private boolean isNumber(String text) {
+        if(text.isEmpty() || text.length() > 3) {
+            return false;
+        }
+        for (int i = 0; i < text.length(); i++) {
+            if(!Character.isDigit(text.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String parseDirection(String input) {

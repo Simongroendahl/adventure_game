@@ -23,6 +23,7 @@ public class Combat {
 
     public CombatResult run() {
         userInterface.printHighlightedMessage("*** ENTERING COMBAT ***");
+        userInterface.printMessage("\033[37m[Enter the number of which move you'd like to perform:]\u001b[0m");
 
         while (true) {
             playerTurn();
@@ -159,7 +160,7 @@ public class Combat {
         userInterface.printMessage(weapon.getAttackMessage(label, result));
 
         if (damage > 0 && target.hit(damage)) {
-            userInterface.printMessage("The " + label + " is down");
+            userInterface.printMessage("The " + label + " is down.");
         }
         return true;
     }
@@ -245,7 +246,6 @@ public class Combat {
         ArrayList<Enemy> enemies = new ArrayList<>(room.getEnemies());
         ArrayList<String> labels = enemyLabels(enemies);
 
-        // TODO - MAKE getEquipped IN ENEMY CLASS
         for (int i = 0; i < enemies.size(); i++) {
             Weapon weapon = enemies.get(i).getWeapon();
 
@@ -271,5 +271,3 @@ public class Combat {
         }
     }
 }
-
-

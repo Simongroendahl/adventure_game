@@ -23,6 +23,6 @@ public class MeleeWeapon extends Weapon {
     // TODO INDSÆT MELEE SOUND
     @Override
     public Sound getAttackSound() {
-        return null;
+        return Sound.MELEE_HIT_1;
     }
 }

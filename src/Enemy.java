@@ -36,11 +36,6 @@ public class Enemy {
         return weapon;
     }
 
-    /*public void attack(Player player) {
-        int playerHealth = player.getHealth();
-        playerHealth += weapon.getDamage();
-    }*/
-
     public boolean hit(int damage){
         health -= damage;
 
@@ -50,5 +45,4 @@ public class Enemy {
         }
         return false;
     }
-
 }
